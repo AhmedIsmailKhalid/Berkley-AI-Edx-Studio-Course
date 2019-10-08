@@ -1,0 +1,2430 @@
+<!DOCTYPE html>
+<!-- saved from url=(0126)http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1 -->
+<html lang="en"><script type="text/javascript" charset="utf-8" id="zm-extension" src="chrome-extension://fdcgdnkidjaadafnichfpabhfomcebme/scripts/webrtc-patch.js" async=""></script><!--<![endif]--><head dir="ltr"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>
+        Homework 5 Question 1: Model-Based RL: Grid Unit |
+        
+        Artificial Intelligence |
+        Studio
+    </title>
+
+    
+
+    <script type="text/javascript" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/djangojs.b28203373cc1.js.download"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="path_prefix" content="">
+
+    
+  
+
+    <link href="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/cms-style-vendor.bffb7fa5b2c5.css" rel="stylesheet" type="text/css">
+
+
+
+    
+  
+
+    <link href="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/cms-style-vendor-tinymce-content.5215de4a2c2f.css" rel="stylesheet" type="text/css">
+
+
+
+    
+  
+
+    <link href="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/cms-style-vendor-tinymce-skin.8df4b871f632.css" rel="stylesheet" type="text/css">
+
+
+
+
+      
+  
+
+    <link href="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/studio-main-v1.8a410f208de5.css" rel="stylesheet" type="text/css">
+
+
+
+
+    
+
+
+
+
+<!-- dummy Segment -->
+<script type="text/javascript">
+  var course_location_analytics = "course\u002Dv1:AU+CS_AI+2018_Spring";
+  var analytics = {
+    "track": function() {}
+  };
+</script>
+<!-- end dummy Segment -->
+
+
+    
+<script type="text/template" id="basic-modal-tpl">
+    <div class="wrapper wrapper-modal-window wrapper-modal-window-<%- name %>"
+     aria-labelledby="modal-window-title"
+     role="dialog">
+    <div class="modal-window-overlay"></div>
+    <div class="modal-window <%- viewSpecificClasses %> modal-<%- size %> modal-type-<%- type %>" tabindex="-1" aria-labelledby="modal-window-title">
+        <div class="<%- name %>-modal">
+            <div class="modal-header">
+                <h2 id="modal-window-title" class="title modal-window-title">
+                    <%- title %>
+                    <% if (modalSRTitle) { %>
+                        <span class="sr modal-sr-title">
+                            <%- modalSRTitle %>
+                        </span>
+                    <% } %>
+                </h2>
+                <% if (showEditorModeButtons) { %>
+                    <ul class="editor-modes action-list action-modes">
+                    </ul>
+                <% } %>
+            </div>
+            <div class="modal-content">
+            </div>
+            <div class="modal-actions">
+                <h3 class="sr"><%- gettext("Actions") %></h3>
+                <ul></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</script>
+<script type="text/template" id="modal-button-tpl">
+    <li class="action-item">
+    <a href="#" class="button <%- isPrimary ? 'action-primary' : '' %> action-<%- type %>"><%- name %></a>
+</li>
+
+</script>
+<script type="text/template" id="edit-xblock-modal-tpl">
+    <div class="xblock-editor" data-locator="<%= xblockInfo.get('id') %>" data-course-key="<%= xblockInfo.get('courseKey') %>"></div>
+
+</script>
+<script type="text/template" id="editor-mode-button-tpl">
+    <li class="action-item" data-mode="<%= mode %>">
+    <a href="#" class="<%= mode %>-button"><%= displayName %></a>
+</li>
+
+</script>
+<script type="text/template" id="upload-dialog-tpl">
+    <form class="upload-dialog" method="POST" action="<%- url %>" enctype="multipart/form-data">
+        <p id="dialog-assetupload-description" class="message"><%- message %></p>
+        <input type="file" name="file" <% if(error && error.attributes && error.attributes.selectedFile) {%>class="error"<% } %> />
+
+        <div class="status-upload">
+
+            <% if(uploading) { %>
+            <div class="wrapper-progress">
+                <% if (uploadedBytes && totalBytes) { %>
+                <progress value="<%- uploadedBytes %>" max="<%- totalBytes %>"><%- uploadedBytes/totalBytes*100 %>%</progress>
+                <% } else { %>
+                <progress></progress>
+                <% } %>
+            </div>
+            <% } %>
+
+            <% if(error) {%>
+            <div id="upload_error" class="message message-status error is-shown" name="upload_error">
+                <p><%- error.message %></p>
+            </div>
+            <% } %>
+
+            <% if(finished) { %>
+            <div id="upload_confirm" class="message message-status confirm success is-shown" name="upload_confirm">
+                <p><%- gettext("File upload succeeded") %></p>
+            </div>
+            <% } %>
+
+        </div>
+    </div>
+</form>
+
+</script>
+<script type="text/template" id="add-xblock-component-tpl">
+    <div class="new-component">
+    <h5><%= gettext("Add New Component") %></h5>
+    <ul class="new-component-type">
+    </ul>
+</div>
+
+</script>
+<script type="text/template" id="add-xblock-component-button-tpl">
+    <% if (type === 'advanced' || templates.length > 1) { %>
+<button type="button" class="multiple-templates add-xblock-component-button" data-type="<%= type %>">
+<% } else { %>
+<button type="button" class="single-template add-xblock-component-button" data-type="<%= type %>" data-category="<%= templates[0].category %>">
+<% } %>
+  <span class="large-template-icon large-<%= type %>-icon"></span>
+  <span class="sr"> <%= gettext("Add Component:") %></span>
+  <span class="name"><%= display_name %></span>
+</button>
+
+</script>
+<script type="text/template" id="add-xblock-component-menu-tpl">
+    <% if (type === 'advanced' || templates.length > 1) { %>
+    <div class="tab current" id="tab1" tabindex="-1" role="dialog" aria-label="<%-
+        interpolate(
+            gettext('%(type)s Component Template Menu'),
+                {type: type},
+                true
+        )
+    %>">
+        <ul class="new-component-template">
+            <% for (var i = 0; i < templates.length; i++) { %>
+                <% if (!templates[i].boilerplate_name) { %>
+                <li class="editor-md empty">
+                    <button type="button" class="button-component" data-category="<%- templates[i].category %>">
+                        <%= HtmlUtils.HTML(support_indicator_template({support_level: templates[i].support_level})) %>
+                        <span class="name"><%- templates[i].display_name %></span>
+                    </button>
+                </li>
+                <% } else { %>
+                <li class="editor-md">
+                    <button type="button" class="button-component" data-category="<%- templates[i].category %>"
+                       data-boilerplate="<%- templates[i].boilerplate_name %>">
+                        <%= HtmlUtils.HTML(support_indicator_template({support_level: templates[i].support_level})) %>
+                        <span class="name"><%- templates[i].display_name %></span>
+                    </button>
+                </li>
+                <% } %>
+            <% } %>
+        </ul>
+        <button class="cancel-button" data-type="<%- type %>"><%- gettext("Cancel") %></button>
+        <%= HtmlUtils.HTML(support_legend_template({support_legend: support_legend})) %>
+    </div>
+<% } %>
+
+</script>
+<script type="text/template" id="add-xblock-component-support-legend-tpl">
+    <% if (support_legend.show_legend) { %>
+    <span class="support-documentation">
+        <a class="support-documentation-link"
+           href="http://edx.readthedocs.io/projects/edx-partner-course-staff/en/latest/exercises_tools/create_exercises_and_tools.html#levels-of-support-for-tools" target="_blank">
+            <%- support_legend.documentation_label %>
+        </a>
+        <span class="support-documentation-level">
+            <span class="icon fa fa-circle" aria-hidden="true"></span>
+            <span><%- gettext('Supported') %></span>
+        </span>
+        <span class="support-documentation-level">
+            <span class="icon fa fa-adjust" aria-hidden="true"></span>
+            <span><%- gettext('Provisional') %></span>
+        </span>
+        <% if (support_legend.allow_unsupported_xblocks) { %>
+        <span class="support-documentation-level">
+            <span class="icon fa fa-circle-o" aria-hidden="true"></span>
+            <span><%- gettext('Not Supported') %></span>
+        </span>
+        <% } %>
+    </span>
+<% } %>
+
+</script>
+<script type="text/template" id="add-xblock-component-support-level-tpl">
+    <% if (support_level === "fs"){ %>
+    <span class="icon support-level fa fa-circle" aria-hidden="true"></span>
+    <span class="sr"><%- gettext('Fully Supported') %></span>
+<% } else if (support_level === "ps"){ %>
+    <span class="icon support-level fa fa-adjust" aria-hidden="true"></span>
+    <span class="sr"><%- gettext('Provisionally Supported') %></span>
+<% } else if (support_level === "us"){ %>
+    <span class="icon support-level fa fa-circle-o" aria-hidden="true"></span>
+    <span class="sr"><%- gettext('Not Supported') %></span>
+<% } %>
+
+</script>
+<script type="text/template" id="add-xblock-component-menu-problem-tpl">
+    <div class="tab-group tabs" tabindex="-1" role="dialog" aria-label="<%-
+    interpolate(
+        gettext('%(type)s Component Template Menu'),
+            {type: type},
+            true
+    )
+%>">
+    <ul class="problem-type-tabs nav-tabs" tabindex='-1'>
+        <li class="current">
+            <a class="link-tab" href="#tab1"><%- gettext("Common Problem Types") %></a>
+        </li>
+        <li>
+            <a class="link-tab" href="#tab2"><%- gettext("Advanced") %></a>
+        </li>
+    </ul>
+    <div class="tab current" id="tab1">
+        <ul class="new-component-template">
+            <% for (var i = 0; i < templates.length; i++) { %>
+                <% if (templates[i].tab == "common") { %>
+                    <% if (!templates[i].boilerplate_name) { %>
+                    <li class="editor-md empty">
+                        <button type="button" class="button-component" data-category="<%- templates[i].category %>">
+                            <%= HtmlUtils.HTML(support_indicator_template({support_level: templates[i].support_level})) %>
+                            <span class="name"><%- templates[i].display_name %></span>
+                        </button>
+                    </li>
+                    <% } else { %>
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="<%- templates[i].category %>"
+                           data-boilerplate="<%- templates[i].boilerplate_name %>">
+                            <%= HtmlUtils.HTML(support_indicator_template({support_level: templates[i].support_level})) %>
+                            <span class="name"><%- templates[i].display_name %></span>
+                        </button>
+                    </li>
+                    <% } %>
+                <% } %>
+            <% } %>
+        </ul>
+    </div>
+    <div class="tab" id="tab2">
+        <ul class="new-component-template">
+            <% for (var i = 0; i < templates.length; i++) { %>
+                <% if (templates[i].tab == "advanced") { %>
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="<%- templates[i].category %>"
+                       data-boilerplate="<%- templates[i].boilerplate_name %>">
+                        <%= HtmlUtils.HTML(support_indicator_template({support_level: templates[i].support_level})) %>
+                        <span class="name"><%- templates[i].display_name %></span>
+                    </button>
+                </li>
+                <% } %>
+            <% } %>
+        </ul>
+    </div>
+    <button class="cancel-button" data-type="<%- type %>"><%- gettext("Cancel") %></button>
+    <%= HtmlUtils.HTML(support_legend_template({support_legend: support_legend})) %>
+</div>
+
+</script>
+<script type="text/template" id="xblock-string-field-editor-tpl">
+    <div class="incontext-editor-action-wrapper">
+    <button class="action-edit action-inline xblock-field-value-edit incontext-editor-open-action">
+        <span class="icon fa fa-pencil" aria-hidden="true"></span><span class="sr"> <%- gettext('Edit') %></span>
+    </button>
+</div>
+
+<div class="xblock-string-field-editor incontext-editor-form">
+  <form>
+    <% var formLabel = gettext("Edit %(display_name)s (required)"); %>
+    <label><span class="sr"><%= interpolate(formLabel, {display_name: fieldDisplayName}, true) %></span>
+      <input type="text" value="<%= value %>" class="xblock-field-input incontext-editor-input" data-metadata-name="<%= fieldName %>">
+    </label>
+    <button class="sr action action-primary" name="submit" type="submit"><%= gettext("Save") %></button>
+    <button class="sr action action-secondary" name="cancel" type="button"><%= gettext("Cancel") %></button>
+  </form>
+</div>
+
+</script>
+<script type="text/template" id="xblock-access-editor-tpl">
+    <div class="access-editor-action-wrapper">
+    <button class="unit-container access-button">
+        <span class="icon fa fa-gear" aria-hidden="true"></span><span class="sr"> <%- gettext('Set Access') %></span>
+    </button>
+</div>
+
+</script>
+<script type="text/template" id="publish-xblock-tpl">
+    <%
+var title = gettext("Draft (Never published)");
+if (visibilityState === 'staff_only') {
+    title = gettext("Visible to Staff Only");
+} else if (visibilityState === 'live') {
+    title = gettext("Published and Live");
+} else if (published && !hasChanges) {
+    title = gettext("Published (not yet released)");
+} else if (published && hasChanges) {
+    title = gettext("Draft (Unpublished changes)");
+}
+
+var releaseLabel = gettext("Release:");
+if (visibilityState === 'live') {
+    releaseLabel = gettext("Released:");
+} else if (visibilityState === 'ready') {
+    releaseLabel = gettext("Scheduled:");
+}
+
+var visibleToStaffOnly = visibilityState === 'staff_only';
+%>
+<div class="bit-publishing <%- visibilityClass %> <% if (releaseDate) { %>is-scheduled<% } %>">
+    <h3 class="bar-mod-title pub-status"><span class="sr"><%- gettext("Publishing Status") %></span>
+        <%- title %>
+    </h3>
+
+    <div class="wrapper-last-draft bar-mod-content">
+        <p class="copy meta">
+            <% if (hasChanges && editedOn && editedBy) { %>
+                <%= HtmlUtils.interpolateHtml(
+                        gettext("Draft saved on {lastSavedStart}{editedOn}{lastSavedEnd} by {editedByStart}{editedBy}{editedByEnd}"),
+                        {
+                            lastSavedStart: HtmlUtils.HTML('<span class="date">'),
+                            editedOn: editedOn,
+                            lastSavedEnd: HtmlUtils.HTML('</span>'),
+                            editedByStart: HtmlUtils.HTML('<span class="user">'),
+                            editedBy: editedBy,
+                            editedByEnd: HtmlUtils.HTML('</span>')
+                        }
+                    ) %>
+            <% } else if (publishedOn && publishedBy) { %>
+                <%= HtmlUtils.interpolateHtml(
+                        gettext("Last published {lastPublishedStart}{publishedOn}{lastPublishedEnd} by {publishedByStart}{publishedBy}{publishedByEnd}"),
+                        {
+                            lastPublishedStart: HtmlUtils.HTML('<span class="date">'),
+                            publishedOn: publishedOn,
+                            lastPublishedEnd: HtmlUtils.HTML('</span>'),
+                            publishedByStart: HtmlUtils.HTML('<span class="user">'),
+                            publishedBy: publishedBy,
+                            publishedByEnd: HtmlUtils.HTML('</span>')
+                        }
+                    ) %>
+            <% } else { %>
+                <%- gettext("Previously published") %>
+            <% } %>
+        </p>
+    </div>
+
+    <% if (!course.get('self_paced')) { %>
+        <div class="wrapper-release bar-mod-content">
+            <h5 class="title"><%- releaseLabel %></h5>
+            <p class="copy">
+                <% if (releaseDate) { %>
+                    <span class="release-date"><%- releaseDate %></span>
+                    <span class="release-with">
+                        <%- interpolate(
+                            gettext('with %(release_date_from)s'), { release_date_from: releaseDateFrom }, true
+                        ) %>
+                    </span>
+
+                <% } else { %>
+                    <%- gettext("Unscheduled") %>
+                <% } %>
+            </p>
+        </div>
+    <% } %>
+
+    <div class="wrapper-visibility bar-mod-content">
+        <h5 class="title">
+            <% if (released && published && !hasChanges) { %>
+                <%- gettext("Is Visible To:") %>
+            <% } else { %>
+                <%- gettext("Will Be Visible To:") %>
+            <% } %>
+        </h5>
+        <% if (visibleToStaffOnly) { %>
+            <p class="visbility-copy copy">
+                <%- gettext("Staff Only") %>
+                <% if (!hasExplicitStaffLock) { %>
+                    <span class="inherited-from">
+                        <%- interpolate(
+                            gettext("with %(section_or_subsection)s"),{ section_or_subsection: staffLockFrom }, true
+                        ) %>
+                    </span>
+                <% } %>
+            </p>
+        <% } else { %>
+            <p class="visbility-copy copy"><%- gettext("Staff and Learners") %></p>
+        <% } %>
+        <ul class="actions-inline">
+            <li class="action-inline">
+                <a href="" class="action-staff-lock" role="button" aria-pressed="<%- hasExplicitStaffLock %>">
+                <% if (hasExplicitStaffLock) { %>
+                    <span class="icon fa fa-check-square-o" aria-hidden="true"></span>
+                <% } else { %>
+                    <span class="icon fa fa-square-o" aria-hidden="true"></span>
+                <% } %>
+                <%- gettext('Hide from learners') %>
+            </a>
+            </li>
+        </ul>
+        <p>
+            <%- gettext("Note: Do not hide graded assignments after they have been released.") %>
+        </p>
+    </div>
+
+    <div class="wrapper-pub-actions bar-mod-actions">
+        <ul class="action-list">
+            <li class="action-item">
+                <a class="action-publish action-primary <% if (published && !hasChanges) { %>is-disabled<% } %>"
+                   href="" aria-disabled="<% if (published && !hasChanges) { %>true<% } else { %>false<% } %>" ><%- gettext("Publish") %>
+                </a>
+            </li>
+            <li class="action-item">
+                <a class="action-discard action-secondary <% if (!published || !hasChanges) { %>is-disabled<% } %>"
+                   href="" aria-disabled="<% if (!published || !hasChanges) { %>true<% } else { %>false<% } %>"><%- gettext("Discard Changes") %>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</script>
+<script type="text/template" id="publish-history-tpl">
+    <%
+var copy = gettext("Never published");
+if (published_on && published_by) {
+    var message = gettext("Last published %(last_published_date)s by %(publish_username)s");
+    copy = interpolate(message, {
+        last_published_date: '<span class="date">' + published_on + '</span>',
+        publish_username: '<span class="user">' + published_by + '</span>'
+    }, true);
+} else if (published) {
+    copy = gettext("Previously published");
+}
+%>
+
+<div class="wrapper-last-publish">
+    <p class="copy"><%= copy %></p>
+</div>
+
+</script>
+<script type="text/template" id="unit-outline-tpl">
+    <% if (parentInfo) { %>
+    <li class="outline-item outline-<%= xblockType %> <%= visibilityClass %> <%= xblockInfo.get('id') === currentUnitId ? 'is-current' : '' %>"
+        data-parent="<%= parentInfo.get('id') %>" data-locator="<%= xblockInfo.get('id') %>">
+        <div class="<%= xblockType %>-header">
+            <h3 class="<%= xblockType %>-header-details">
+                <span class="<%= xblockType %>-title item-title">
+                    <a href="<%= xblockInfo.get('studio_url') %>"><%- xblockInfo.get('display_name') %></a>
+                </span>
+            </h3>
+        </div>
+<% } %>
+
+        <div class="<%= xblockType %>-content outline-content">
+            <ol class="<%= typeListClass %>">
+            </ol>
+            <% if (childType) { %>
+                <div class="add-<%= childType %> add-item">
+                    <a href="#" class="button button-new" data-category="<%= childCategory %>"
+                       data-parent="<%= xblockInfo.get('id') %>" data-default-name="<%= defaultNewChildName %>">
+                        <span class="icon fa fa-plus" aria-hidden="true"></span><%= addChildLabel %>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+
+<% if (parentInfo) { %>
+    </li>
+<% } %>
+
+</script>
+<script type="text/template" id="container-message-tpl">
+    <% if (currentlyVisibleToStudents) { %>
+    <div class="message has-warnings">
+        <p class="warning">
+            <span class="icon fa fa-warning" aria-hidden="true"></span>
+            <%- gettext("Caution: The last published version of this unit is live. By publishing changes you will change the student experience.") %>
+        </p>
+    </div>
+<% } %>
+
+</script>
+<script type="text/template" id="container-access-tpl">
+    <%
+var selectedGroupsLabel = userPartitionInfo['selected_groups_label'];
+var selectedPartitionIndex = userPartitionInfo['selected_partition_index'];
+var category = this.model.attributes.category;
+var blockType = "";
+if (category == "vertical") {
+    blockType = gettext("unit")
+} else {
+    blockType = gettext("component")
+}
+%>
+<% if (selectedGroupsLabel) { %>
+    <span class="access-message"><%-
+        edx.StringUtils.interpolate(
+                // Translators: blockType refers to the type of the xblock that access is restricted to.
+                gettext('Access to this {blockType} is restricted to: {selectedGroupsLabel}'),
+                {
+                    selectedGroupsLabel: selectedGroupsLabel,
+                    blockType: blockType
+                }
+        ) %></span>
+<% } else if (hasPartitionGroupComponents) { %>
+     <span class="access-message"><%-
+         edx.StringUtils.interpolate(
+                    // Translators: blockType refers to the type of the xblock that access is restricted to.
+                    gettext('Access to some content in this {blockType} is restricted to specific groups of learners.'),
+                    {
+                        blockType: blockType
+                    }
+            ) %></span>
+<% } %>
+
+</script>
+<script type="text/template" id="license-selector-tpl">
+    <div class="wrapper-license">
+    <h3 class="label setting-label">
+        <%= gettext("License Type") %>
+    </h3>
+    <ul class="license-types">
+        <% var link_start_tpl = '<a href="{url}" target="_blank">'; %>
+        <% _.each(licenseInfo, function(license, licenseType) { %>
+            <li class="license-type" data-license="<%- licenseType %>">
+                <button name="license-<%- licenseType %>"
+                        class="action license-button <% if(model.type === licenseType) { print("is-selected"); } %>"
+                        aria-pressed="<%- (model.type === licenseType).toString() %>"
+                        <% if (license.tooltip) { %>data-tooltip="<%- license.tooltip %>"<% } %>>
+                    <%- license.name %>
+                </button>
+                <p class="tip">
+                    <% if(license.url) { %>
+                        <a href="<%- license.url %>" target="_blank">
+                            <%= gettext("Learn more about {license_name}")
+                                        .replace("{license_name}", license.name)
+                            %>
+                        </a>
+                    <% } else { %>
+                        &nbsp;
+                    <% } %>
+                </p>
+            </li>
+        <% }) %>
+    </ul>
+
+<% var license = licenseInfo[model.type]; %>
+<% if(license && !_.isEmpty(license.options)) { %>
+    <div class="wrapper-license-options">
+        <h4 class="label setting-label">
+            <%- gettext("Options for {license_name}").replace("{license_name}", license.name) %>
+        </h4>
+        <p class='tip tip-inline'>
+            <%- gettext("The following options are available for the {license_name} license.")
+                        .replace("{license_name}", license.name) %>
+        </p>
+        <ul class="license-options">
+            <% _.each(license.option_order, function(optionKey) { %>
+                <% var optionInfo = license.options[optionKey]; %>
+                <% if (optionInfo.type == "boolean") { %>
+                    <% var optionSelected = model.options[optionKey]; %>
+                    <% var optionDisabled = optionInfo.disabled %>
+                    <li data-option="<%- optionKey %>"
+                        class="action-item license-option
+                               <% if (optionSelected) { print("is-selected"); } %>
+                               <% if (optionDisabled) { print("is-disabled"); } else { print("is-clickable"); } %>"
+                    >
+                        <input type="checkbox"
+                               id="<%- model.type %>-<%- optionKey %>"
+                               name="<%- model.type %>-<%- optionKey %>"
+                               aria-describedby="<%- optionKey %>-explanation"
+                               <% if(optionSelected) { print('checked="checked"'); } %>
+                               <% if(optionDisabled) { print('disabled="disabled"'); } %>
+                        />
+                        <label for="<%- model.type %>-<%- optionKey %>" class="option-name">
+                            <%- optionInfo.name %>
+                        </label>
+                        <div id="<%- optionKey %>-explanation" class="explanation">
+                            <%- optionInfo.help %>
+                        </div>
+                    </li>
+                <% } // could implement other types here %>
+            <% }) %>
+        </ul>
+    </div>
+<% } %>
+
+<% if (showPreview) { %>
+    <div class="wrapper-license-preview">
+        <h4 class="label setting-label">
+            <%= gettext("License Display") %>
+        </h4>
+        <p class="tip">
+            <%= gettext("The following message will be displayed at the bottom of the courseware pages within your course:") %>
+        </p>
+        <div class="license-preview">
+        <% // keep this synchronized with the contents of common/templates/license.html %>
+        <% if (model.type === "all-rights-reserved") { %>
+            © <span class="license-text"><%= gettext("All Rights Reserved") %></span>
+        <% } else if (model.type === "creative-commons") {
+             var possible = ["by", "nc", "nd", "sa"];
+             var enabled = _.filter(possible, function(option) {
+                 return model.options[option] === true || model.options[option.toUpperCase()] === true;
+             });
+             var version = model.options.ver || "4.0";
+             if (_.isEmpty(enabled)) {
+                    enabled = ["zero"];
+                    version = model.options.ver || "1.0";
+             }
+        %>
+            <a rel="license" href="https://creativecommons.org/licenses/<%- enabled.join("-") %>/<%- version %>/">
+            <% if (previewButton) { %>
+                <img src="https://licensebuttons.net/l/<%- enabled.join("-") %>/<%- version %>/<%- typeof buttonSize == "string" ? buttonSize : "88x31" %>.png"
+                    alt="<%- typeof licenseString == "string" ? licenseString : "" %>"
+                    />
+            <% } else { %>
+	        <% //<span> must come before <i> icon or else spacing gets messed up %>
+                <span class="sr"><%= gettext("Creative Commons licensed content, with terms as follow:") %>&nbsp;</span><span aria-hidden="true" class="icon-cc"></span>
+                <% _.each(enabled, function(option) { %>
+                        <span class="sr"><%- license.options[option.toUpperCase()].name %>&nbsp;</span><span aria-hidden="true" class="icon-cc-<%- option %>"></span>
+                <% }); %>
+                <span class="license-text"><%= gettext("Some Rights Reserved") %></span>
+            <% } %>
+        <% } else { %>
+            <%= typeof licenseString == "string" ? licenseString : "" %>
+            <% // Default to ARR license %>
+            © <span class="license-text"><%= gettext("All Rights Reserved") %></span>
+        <% } %>
+        </a>
+    </div>
+<% } %>
+</div>
+
+</script>
+<script type="text/template" id="image-modal-tpl">
+    <div class="wrapper-modal wrapper-modal-image">
+  <section class="image-link">
+    <%= smallHTML%>
+    <a href="#" class="modal-ui-icon action-fullscreen" role="button">
+      <span class="label">
+        <span class="icon fa fa-arrows-alt fa-large" aria-hidden="true"></span> <%- gettext("Fullscreen") %>
+      </span>
+    </a>
+  </section>
+
+  <section class="image-modal">
+    <section class="image-content">
+      <div class="image-wrapper">
+        <img alt="<%= largeALT %>, <%- gettext('Large') %>" src="<%= largeSRC %>" />
+      </div>
+
+      <a href="#" class="modal-ui-icon action-close" role="button">
+        <span class="label">
+          <span class="icon fa fa-remove fa-large" aria-hidden="true"></span> <%- gettext("Close") %>
+        </span>
+      </a>
+
+      <ul class="image-controls">
+        <li class="image-control">
+          <a href="#" class="modal-ui-icon action-zoom-in" role="button">
+            <span class="label">
+              <span class="icon fa fa fa-search-plus fa-large" aria-hidden="true"></span> <%- gettext("Zoom In") %>
+            </span>
+          </a>
+        </li>
+
+        <li class="image-control">
+          <a href="#" class="modal-ui-icon action-zoom-out is-disabled" aria-disabled="true" role="button">
+            <span class="label">
+              <span class="icon fa fa fa-search-minus fa-large" aria-hidden="true"></span> <%- gettext("Zoom Out") %>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </section>
+</div>
+
+</script>
+<link rel="stylesheet" type="text/css" href="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/jquery.timepicker.450aaf730030.css">
+
+  <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/factories/base" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/base.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery.cookie" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/jquery.cookie.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/sock" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/sock.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/factories/container" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/container.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="xmodule" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/xmodule.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/00dadc3/js/cms-modules.f6aa2004fa92.js" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/cms-modules.f6aa2004fa92.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="mathjax" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/MathJax.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="hls" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/hls.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="moment" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/moment-with-locales.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/factories/xblock_validation" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/xblock_validation.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+  <body class="ltr is-signedin course container view-container lang_en js"><div id="MathJax_Message" style="display: none;"></div>
+    
+
+    <a class="nav-skip" href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1#main">Skip to main content</a>
+
+    
+    <script type="text/javascript" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/cms-base-vendor.85ec4cfd517c.js.download" charset="utf-8"></script>
+
+
+
+    
+    
+    
+            
+            <script type="text/javascript" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/commons.16533ce2715d.js.download"></script>
+            
+        
+
+    <script type="text/javascript">
+      window.baseUrl = "/static/00dadc3/";
+      require.config({
+          baseUrl: window.baseUrl
+      });
+    </script>
+
+    <script type="text/javascript" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/require-config.57b6b1644be2.js.download"></script>
+
+    <!-- view -->
+    <div class="wrapper wrapper-view" dir="ltr">
+      
+
+      
+
+
+<div class="wrapper-header wrapper" id="view-top">
+  <header class="primary" role="banner">
+
+    <div class="wrapper wrapper-l">
+      <h1 class="branding">
+        <a class="brand-link" href="http://edxdemo.arbisoft.com:18010/">
+          <img class="brand-image" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/studio-logo.b6c374d66d57.png" alt="Studio">
+        </a>
+      </h1>
+
+      
+      <h2 class="info-course">
+        <span class="sr">Current Course:</span>
+        <a class="course-link" href="http://edxdemo.arbisoft.com:18010/course/course-v1:AU+CS_AI+2018_Spring">
+          <span class="course-org">AU</span><span class="course-number">CS_AI</span>
+          <span class="course-title" title="Artificial Intelligence">Artificial Intelligence</span>
+        </a>
+      </h2>
+
+      <nav class="nav-course nav-dd ui-left" aria-label="Course">
+        <h2 class="sr">Course Navigation</h2>
+        <ol>
+          <li class="nav-item nav-course-courseware">
+            <h3 class="title"><span class="label"><span class="label-prefix sr">Course </span>Content</span> <span class="icon fa fa-caret-down ui-toggle-dd" aria-hidden="true"></span></h3>
+
+            <div class="wrapper wrapper-nav-sub">
+              <div class="nav-sub">
+                <ul>
+                  <li class="nav-item nav-course-courseware-outline">
+                    <a href="http://edxdemo.arbisoft.com:18010/course/course-v1:AU+CS_AI+2018_Spring">Outline</a>
+                  </li>
+                  <li class="nav-item nav-course-courseware-updates">
+                    <a href="http://edxdemo.arbisoft.com:18010/course_info/course-v1:AU+CS_AI+2018_Spring">Updates</a>
+                  </li>
+                  <li class="nav-item nav-course-courseware-pages">
+                    <a href="http://edxdemo.arbisoft.com:18010/tabs/course-v1:AU+CS_AI+2018_Spring">Pages</a>
+                  </li>
+                  <li class="nav-item nav-course-courseware-uploads">
+                    <a href="http://edxdemo.arbisoft.com:18010/assets/course-v1:AU+CS_AI+2018_Spring/">Files &amp; Uploads</a>
+                  </li>
+                  <li class="nav-item nav-course-courseware-textbooks">
+                    <a href="http://edxdemo.arbisoft.com:18010/textbooks/course-v1:AU+CS_AI+2018_Spring">Textbooks</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+
+          <li class="nav-item nav-course-settings">
+            <h3 class="title"><span class="label"><span class="label-prefix sr">Course </span>Settings</span> <span class="icon fa fa-caret-down ui-toggle-dd" aria-hidden="true"></span></h3>
+
+            <div class="wrapper wrapper-nav-sub">
+              <div class="nav-sub">
+                <ul>
+                  <li class="nav-item nav-course-settings-schedule">
+                    <a href="http://edxdemo.arbisoft.com:18010/settings/details/course-v1:AU+CS_AI+2018_Spring">Schedule &amp; Details</a>
+                  </li>
+                  <li class="nav-item nav-course-settings-grading">
+                    <a href="http://edxdemo.arbisoft.com:18010/settings/grading/course-v1:AU+CS_AI+2018_Spring">Grading</a>
+                  </li>
+                  <li class="nav-item nav-course-settings-team">
+                    <a href="http://edxdemo.arbisoft.com:18010/course_team/course-v1:AU+CS_AI+2018_Spring">Course Team</a>
+                  </li>
+                  <li class="nav-item nav-course-settings-group-configurations">
+                    <a href="http://edxdemo.arbisoft.com:18010/group_configurations/course-v1:AU+CS_AI+2018_Spring">Group Configurations</a>
+                  </li>
+                  <li class="nav-item nav-course-settings-advanced">
+                    <a href="http://edxdemo.arbisoft.com:18010/settings/advanced/course-v1:AU+CS_AI+2018_Spring">Advanced Settings</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+
+          <li class="nav-item nav-course-tools">
+            <h3 class="title"><span class="label">Tools</span> <span class="icon fa fa-caret-down ui-toggle-dd" aria-hidden="true"></span></h3>
+            <div class="wrapper wrapper-nav-sub">
+              <div class="nav-sub">
+                <ul>
+                  <li class="nav-item nav-course-tools-import">
+                    <a href="http://edxdemo.arbisoft.com:18010/import/course-v1:AU+CS_AI+2018_Spring">Import</a>
+                  </li>
+                  <li class="nav-item nav-course-tools-export">
+                    <a href="http://edxdemo.arbisoft.com:18010/export/course-v1:AU+CS_AI+2018_Spring">Export</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="wrapper wrapper-r">
+      <nav class="nav-account nav-is-signedin nav-dd ui-right" aria-label="Account">
+        <h2 class="sr-only">Account Navigation</h2>
+        <ol>
+          <li class="nav-item nav-account-help">
+            <h3 class="title"><span class="label"><a href="http://edx.readthedocs.io/projects/open-edx-building-and-running-a-course/en/latest/developing_course/course_units.html" title="Contextual Online Help" target="_blank">Help</a></span></h3>
+          </li>
+          <li class="nav-item nav-account-user">
+            
+
+
+
+  <h3 class="title">
+    <span class="label">
+      <span class="label-prefix sr-only">Currently signed in as:</span>
+      <span class="account-username" title="Ahmedik">Ahmedik</span>
+    </span>
+    <span class="icon fa fa-caret-down ui-toggle-dd" aria-hidden="true"></span>
+  </h3>
+
+  <div class="wrapper wrapper-nav-sub">
+    <div class="nav-sub">
+      <ul>
+        <li class="nav-item nav-account-dashboard">
+          <a href="http://edxdemo.arbisoft.com:18010/">Studio Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="http://edxdemo.arbisoft.com:18010/maintenance/">Maintenance</a>
+        </li>
+        <li class="nav-item nav-account-signout">
+          <a class="action action-signout" href="http://edxdemo.arbisoft.com:18010/logout">Sign Out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+          </li>
+        </ol>
+      </nav>
+
+    </div>
+  </header>
+</div>
+
+
+      
+
+
+      <div id="page-alert">
+      
+      </div>
+
+      <main id="main" aria-label="Content" tabindex="-1">
+        <div id="content">
+        
+
+
+<div class="wrapper-mast wrapper">
+    <header class="mast has-actions has-navigation has-subtitle">
+        <div class="page-header">
+            <small class="navigation navigation-parents subtitle">
+                    
+                        <a href="http://edxdemo.arbisoft.com:18010/course/course-v1:AU+CS_AI+2018_Spring?show=block-v1%3AAU%2BCS_AI%2B2018_Spring%2Btype%40chapter%2Bblock%4002708b22cdd84505ae67d99c56e6de3a" class="navigation-item navigation-link navigation-parent">Module 5 : Reinforcement Learning</a>
+                    
+                        <a href="http://edxdemo.arbisoft.com:18010/course/course-v1:AU+CS_AI+2018_Spring?show=block-v1%3AAU%2BCS_AI%2B2018_Spring%2Btype%40sequential%2Bblock%405391b43112e54c3382b99d0abed82314" class="navigation-item navigation-link navigation-parent">Homeworks</a>
+            </small>
+            <div class="wrapper-xblock-field incontext-editor is-editable" data-field="display_name" data-field-display-name="Display Name">
+                <h1 class="page-header-title xblock-field-value incontext-editor-value"><span class="title-value">Homework 5 Question 1: Model-Based RL: Grid</span></h1>
+            
+    <div class="incontext-editor-action-wrapper">
+    <button class="action-edit action-inline xblock-field-value-edit incontext-editor-open-action">
+        <span class="icon fa fa-pencil" aria-hidden="true"></span><span class="sr"> Edit</span>
+    </button>
+</div>
+
+<div class="xblock-string-field-editor incontext-editor-form">
+  <form>
+    
+    <label><span class="sr">Edit Display Name (required)</span>
+      <input type="text" value="Homework 5 Question 1: Model-Based RL: Grid" class="xblock-field-input incontext-editor-input" data-metadata-name="display_name">
+    </label>
+    <button class="sr action action-primary" name="submit" type="submit">Save</button>
+    <button class="sr action action-secondary" name="cancel" type="button">Cancel</button>
+  </form>
+</div>
+
+
+    <div class="access-editor-action-wrapper">
+    <button class="unit-container access-button">
+        <span class="icon fa fa-gear" aria-hidden="true"></span><span class="sr"> Set Access</span>
+    </button>
+</div>
+
+</div>
+            <div class="container-access">
+    
+
+
+</div>
+        </div>
+
+        <nav class="nav-actions" aria-label="Page Actions">
+            <h3 class="sr">Page Actions</h3>
+            <ul>
+                    <li class="action-item action-view nav-item">
+                        <a href="http://edxdemo.arbisoft.com/courses/course-v1:AU+CS_AI+2018_Spring/jump_to/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1" class="button button-view action-button is-disabled" aria-disabled="true" rel="external" title="Open the courseware in the LMS" target="_blank">
+                            <span class="action-button-text">View Live Version</span>
+                        </a>
+                    </li>
+                    <li class="action-item action-preview nav-item">
+                        <a href="http://preview.edxdemo.arbisoft.com/courses/course-v1:AU+CS_AI+2018_Spring/jump_to/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1" class="button button-preview action-button" rel="external" title="Preview the courseware in the LMS" target="_blank">
+                            <span class="action-button-text">Preview</span>
+                        </a>
+                    </li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+<div class="wrapper-content wrapper">
+    <div class="inner-wrapper">
+        <section class="content-area">
+
+            <article class="content-primary">
+                <div class="container-message wrapper-message">
+    
+
+</div>
+                <section class="wrapper-xblock level-page studio-xblock-wrapper" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1" data-course-key="course-v1:AU+CS_AI+2018_Spring">
+
+
+
+
+
+
+<script type="text/template" id="xblock-validation-messages-tpl">
+    <%
+var summaryMessage = validation.get("summary");
+var aggregateMessageType = summaryMessage.type;
+var aggregateValidationClass = aggregateMessageType === "error"? "has-errors" : "has-warnings";
+%>
+    <div class="xblock-message validation <%= aggregateValidationClass %> <%= additionalClasses %>">
+        <p class="<%- aggregateMessageType %>"><span class="icon fa <%- getIcon(aggregateMessageType) %>" aria-hidden="true"></span>
+        <%- summaryMessage.text %>
+        <% if (summaryMessage.action_class) { %>
+            <a href="#" class="button action-button <%- summaryMessage.action_class %>">
+                <span class="action-button-text"><%- summaryMessage.action_label %></span>
+            </a>
+        <% } else if (summaryMessage.action_runtime_event) {%>
+            <a href="#" class="button action-button notification-action-button" data-notification-action="<%- summaryMessage.action_runtime_event %>">
+                <span class="action-button-text"><%- summaryMessage.action_label %></span>
+            </a>
+        <% } %>
+        </p>
+        <% var detailedMessages = validation.get("messages"); %>
+        <% if (detailedMessages.length > 0) { %>
+            <ul class="xblock-message-list">
+                <% for (var i = 0; i < detailedMessages.length; i++) { %>
+                <%
+                var message = detailedMessages[i];
+                var messageType = message.type
+                var messageTypeDisplayName = getDisplayName(messageType)
+                %>
+                <li class="xblock-message-item <%= messageType %>">
+                    <span class="message-text">
+                        <% if (messageTypeDisplayName) { %>
+                            <span class="sr"><%- messageTypeDisplayName %>:</span>
+                        <% } %>
+                        <%- message.text %>
+
+                    <% if (message.action_class) { %>
+                        <a href="#" class="button action-button <%- message.action_class %>">
+                            <span class="action-button-text"><%- message.action_label %></span>
+                        </a>
+                    <% } else if (message.action_runtime_event) {%>
+                       <a href="#" class="button action-button notification-action-button" data-notification-action="<%- message.action_runtime_event %>">
+                            <span class="action-button-text"><%- message.action_label %></span>
+                        </a>
+                    <% } %>
+                    </span>
+                </li>
+                <% } %>
+            </ul>
+        <% } %>
+    </div>
+
+</script>
+
+
+<script>
+    require(["jquery", "js/factories/xblock_validation"], function($, XBlockValidationFactory) {
+        XBlockValidationFactory(
+            {"messages": [], "xblock_id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1", "empty": true},
+            true,  // xblock_url will be None or a string
+            true,  // is_root will be None or a boolean
+            true,  // block_is_unit will be None or a boolean
+            $('div.xblock-validation-messages[data-locator="block\u002Dv1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1"]')
+        );
+    });
+</script>
+
+
+<header class="xblock-header xblock-header-vertical">
+    <div class="xblock-header-primary
+    ">
+        <div class="header-details">
+            <div class="xblock-display-title">
+                <span class="xblock-display-name">Homework 5 Question 1: Model-Based RL: Grid</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <ul class="actions-list">
+            </ul>
+        </div>
+    </div>
+ </header>
+
+    <div class="wrapper-xblock-message xblock-validation-messages" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1"></div>
+
+            <article class="xblock-render">
+        <div class="xblock xblock-author_view xblock-author_view-vertical xblock-initialized" data-usage-id="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1" data-request-token="cc33a2e2594611e8aab30a04380ca6fe" data-block-type="vertical">
+      <ol class="reorderable-container ui-sortable">
+    
+
+
+
+
+
+
+<script type="text/template" id="xblock-validation-messages-tpl">
+    <%
+var summaryMessage = validation.get("summary");
+var aggregateMessageType = summaryMessage.type;
+var aggregateValidationClass = aggregateMessageType === "error"? "has-errors" : "has-warnings";
+%>
+    <div class="xblock-message validation <%= aggregateValidationClass %> <%= additionalClasses %>">
+        <p class="<%- aggregateMessageType %>"><span class="icon fa <%- getIcon(aggregateMessageType) %>" aria-hidden="true"></span>
+        <%- summaryMessage.text %>
+        <% if (summaryMessage.action_class) { %>
+            <a href="#" class="button action-button <%- summaryMessage.action_class %>">
+                <span class="action-button-text"><%- summaryMessage.action_label %></span>
+            </a>
+        <% } else if (summaryMessage.action_runtime_event) {%>
+            <a href="#" class="button action-button notification-action-button" data-notification-action="<%- summaryMessage.action_runtime_event %>">
+                <span class="action-button-text"><%- summaryMessage.action_label %></span>
+            </a>
+        <% } %>
+        </p>
+        <% var detailedMessages = validation.get("messages"); %>
+        <% if (detailedMessages.length > 0) { %>
+            <ul class="xblock-message-list">
+                <% for (var i = 0; i < detailedMessages.length; i++) { %>
+                <%
+                var message = detailedMessages[i];
+                var messageType = message.type
+                var messageTypeDisplayName = getDisplayName(messageType)
+                %>
+                <li class="xblock-message-item <%= messageType %>">
+                    <span class="message-text">
+                        <% if (messageTypeDisplayName) { %>
+                            <span class="sr"><%- messageTypeDisplayName %>:</span>
+                        <% } %>
+                        <%- message.text %>
+
+                    <% if (message.action_class) { %>
+                        <a href="#" class="button action-button <%- message.action_class %>">
+                            <span class="action-button-text"><%- message.action_label %></span>
+                        </a>
+                    <% } else if (message.action_runtime_event) {%>
+                       <a href="#" class="button action-button notification-action-button" data-notification-action="<%- message.action_runtime_event %>">
+                            <span class="action-button-text"><%- message.action_label %></span>
+                        </a>
+                    <% } %>
+                    </span>
+                </li>
+                <% } %>
+            </ul>
+        <% } %>
+    </div>
+
+</script>
+
+
+<script>
+    require(["jquery", "js/factories/xblock_validation"], function($, XBlockValidationFactory) {
+        XBlockValidationFactory(
+            {"messages": [], "xblock_id": "block-v1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5", "empty": true},
+            false,  // xblock_url will be None or a string
+            false,  // is_root will be None or a boolean
+            false,  // block_is_unit will be None or a boolean
+            $('div.xblock-validation-messages[data-locator="block\u002Dv1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5"]')
+        );
+    });
+</script>
+
+    <li class="studio-xblock-wrapper is-draggable" data-locator="block-v1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5" data-course-key="course-v1:AU+CS_AI+2018_Spring">
+
+    <section class="wrapper-xblock level-element 
+    ">
+
+<header class="xblock-header xblock-header-problem">
+    <div class="xblock-header-primary
+    ">
+        <div class="header-details">
+            <div class="xblock-display-title">
+                <span class="xblock-display-name">Question 1: Model-Based RL: Grid</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <ul class="actions-list">
+                            <li class="action-item action-edit">
+                                <button class="btn-default edit-button action-button">
+                                    <span class="icon fa fa-pencil" aria-hidden="true"></span>
+                                    <span class="action-button-text">Edit</span>
+                                </button>
+                            </li>
+                                <li class="action-item action-visibility">
+                                    <button data-tooltip="Access Settings" class="btn-default access-button action-button">
+                                        <span class="icon fa fa-gear" aria-hidden="true"></span>
+                                        <span class="sr">Set Access</span>
+                                    </button>
+                                </li>
+                                <li class="action-item action-duplicate">
+                                    <button data-tooltip="Duplicate" class="btn-default duplicate-button action-button">
+                                    <span class="icon fa fa-copy" aria-hidden="true"></span>
+                                    <span class="sr">Duplicate</span>
+                                    </button>
+                                </li>
+                                <li class="action-item action-move">
+                                    <button data-tooltip="Move" class="btn-default move-button action-button">
+                                        <span class="stack-move-icon fa-stack fa-lg ">
+                                            <span class="fa fa-file-o fa-stack-2x fa-fw" aria-hidden="true"></span>
+                                            <span class="fa fa-arrow-right fa-stack-1x fa-fw" aria-hidden="true"></span>
+                                        </span>
+                                        <span class="sr">Move</span>
+                                    </button>
+                                </li>
+                            <!-- If we can add, we can delete. -->
+                            <li class="action-item action-delete">
+                                <button data-tooltip="Delete" class="btn-default delete-button action-button">
+                                <span class="icon fa fa-trash-o" aria-hidden="true"></span>
+                                <span class="sr">Delete</span>
+                                </button>
+                            </li>
+                            <li class="action-item action-drag">
+                                <span data-tooltip="Drag to reorder" class="drag-handle action"></span>
+                            </li>
+            </ul>
+        </div>
+    </div>
+        <div class="wrapper-xblock-message xblock-validation-messages" data-locator="block-v1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5"></div>
+ </header>
+
+
+            <article class="xblock-render" lang="en">
+        <div class="xblock xblock-author_view xblock-author_view-problem xmodule_display xmodule_CapaModule xblock-initialized" data-runtime-class="PreviewRuntime" data-init="XBlockToXModuleShim" data-request-token="cc33a2e2594611e8aab30a04380ca6fe" data-runtime-version="1" data-usage-id="block-v1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5" data-type="Problem" data-block-type="problem">
+  
+  <div id="problem_97a850ca55b248e3aea8a8506c7121c5" class="problems-wrapper" role="group" aria-labelledby="97a850ca55b248e3aea8a8506c7121c5-problem-title" data-problem-id="block-v1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5" data-url="/preview/xblock/block-v1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5/handler/xmodule_handler" data-problem-score="0.0" data-problem-total-possible="4.0" data-attempts-used="1" data-content="
+
+
+
+&lt;h3 class=&quot;hd hd-3 problem-header&quot; id=&quot;97a850ca55b248e3aea8a8506c7121c5-problem-title&quot; aria-describedby=&quot;block-v1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5-problem-progress&quot; tabindex=&quot;-1&quot;&gt;
+  Question 1: Model-Based RL: Grid
+&lt;/h3&gt;
+
+&lt;div class=&quot;problem-progress&quot; id=&quot;block-v1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5-problem-progress&quot;&gt;&lt;/div&gt;
+
+&lt;div class=&quot;problem&quot;&gt;
+  &lt;div&gt;&lt;img src=&quot;/assets/courseware/v1/29150743dd548ccea0334780ea75eeda/asset-v1:AU+CS_AI+2018_Spring+type@asset+block/hw5_q1.png&quot; width=&quot;300&quot; align=&quot;middle&quot;/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;p&gt;&lt;b&gt;Conisder the observed episodes below :&lt;/b&gt;&lt;/p&gt;&lt;br/&gt;&lt;style&gt;
+
+table {
+    border: 1px solid black;
+      display: inline-block;
+}
+
+td {
+    border: none;
+}
+
+&lt;/style&gt;&lt;table&gt;&lt;caption&gt;&lt;b&gt;Episode 1&lt;/b&gt;&lt;/caption&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;A,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;south,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;C,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;-1.2&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;C,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;south,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;D&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;0.3&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;D,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;exit,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;X,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;-10&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;table&gt;&lt;caption&gt;&lt;b&gt;Episode 2&lt;/b&gt;&lt;/caption&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;B,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;east,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;C,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;-1.1&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;C,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;south,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;D,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;0.3&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;D,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;exit,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;X,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;-10&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;table&gt;&lt;caption&gt;&lt;b&gt;Episode 3&lt;/b&gt;&lt;/caption&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;B,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;east,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;C,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;-1.1&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;C,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;south,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;E,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;0.0&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;E,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;exit,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;X,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;20&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;table&gt;&lt;caption&gt;&lt;b&gt;Episode 4&lt;/b&gt;&lt;/caption&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;A,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;south,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;C,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;-1.2&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;C,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;south,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;E,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;0.0&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;E,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;exit,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;X,&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;20&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;p&gt;&lt;b&gt;What model would be learned from the above observed episodes?&lt;/b&gt;&lt;/p&gt;&lt;br/&gt;&lt;br/&gt;&lt;div class=&quot;wrapper-problem-response&quot; tabindex=&quot;-1&quot; aria-label=&quot;Question 1&quot; role=&quot;group&quot;&gt;&lt;div id=&quot;inputtype_97a850ca55b248e3aea8a8506c7121c5_2_1&quot; class=&quot; capa_inputtype  textline&quot;&gt;&lt;div class=&quot;incorrect &quot;&gt;&lt;label class=&quot;problem-group-label&quot; for=&quot;input_97a850ca55b248e3aea8a8506c7121c5_2_1&quot; id=&quot;label_97a850ca55b248e3aea8a8506c7121c5_2_1&quot;&gt;T(A, south, C) =&lt;/label&gt;&lt;input type=&quot;text&quot; name=&quot;input_97a850ca55b248e3aea8a8506c7121c5_2_1&quot; id=&quot;input_97a850ca55b248e3aea8a8506c7121c5_2_1&quot; aria-describedby=&quot;status_97a850ca55b248e3aea8a8506c7121c5_2_1&quot; value=&quot;2&quot; size=&quot;20&quot;/&gt;&lt;span class=&quot;trailing_text&quot; id=&quot;trailing_text_97a850ca55b248e3aea8a8506c7121c5_2_1&quot;/&gt;&lt;span class=&quot;status incorrect&quot; id=&quot;status_97a850ca55b248e3aea8a8506c7121c5_2_1&quot; data-tooltip=&quot;This answer is incorrect.&quot;&gt;&lt;span class=&quot;sr&quot;&gt;incorrect&lt;/span&gt;&lt;span class=&quot;status-icon&quot; aria-hidden=&quot;true&quot;/&gt;&lt;/span&gt;&lt;p id=&quot;answer_97a850ca55b248e3aea8a8506c7121c5_2_1&quot; class=&quot;answer&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;solution-span&quot;&gt;&lt;span id=&quot;solution_97a850ca55b248e3aea8a8506c7121c5_solution_1&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;&lt;div class=&quot;wrapper-problem-response&quot; tabindex=&quot;-1&quot; aria-label=&quot;Question 2&quot; role=&quot;group&quot;&gt;&lt;div id=&quot;inputtype_97a850ca55b248e3aea8a8506c7121c5_3_1&quot; class=&quot; capa_inputtype  textline&quot;&gt;&lt;div class=&quot;incorrect &quot;&gt;&lt;label class=&quot;problem-group-label&quot; for=&quot;input_97a850ca55b248e3aea8a8506c7121c5_3_1&quot; id=&quot;label_97a850ca55b248e3aea8a8506c7121c5_3_1&quot;&gt;T(B, east, C) =&lt;/label&gt;&lt;input type=&quot;text&quot; name=&quot;input_97a850ca55b248e3aea8a8506c7121c5_3_1&quot; id=&quot;input_97a850ca55b248e3aea8a8506c7121c5_3_1&quot; aria-describedby=&quot;status_97a850ca55b248e3aea8a8506c7121c5_3_1&quot; value=&quot;2&quot; size=&quot;20&quot;/&gt;&lt;span class=&quot;trailing_text&quot; id=&quot;trailing_text_97a850ca55b248e3aea8a8506c7121c5_3_1&quot;/&gt;&lt;span class=&quot;status incorrect&quot; id=&quot;status_97a850ca55b248e3aea8a8506c7121c5_3_1&quot; data-tooltip=&quot;This answer is incorrect.&quot;&gt;&lt;span class=&quot;sr&quot;&gt;incorrect&lt;/span&gt;&lt;span class=&quot;status-icon&quot; aria-hidden=&quot;true&quot;/&gt;&lt;/span&gt;&lt;p id=&quot;answer_97a850ca55b248e3aea8a8506c7121c5_3_1&quot; class=&quot;answer&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;solution-span&quot;&gt;&lt;span id=&quot;solution_97a850ca55b248e3aea8a8506c7121c5_solution_2&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;&lt;div class=&quot;wrapper-problem-response&quot; tabindex=&quot;-1&quot; aria-label=&quot;Question 3&quot; role=&quot;group&quot;&gt;&lt;div id=&quot;inputtype_97a850ca55b248e3aea8a8506c7121c5_4_1&quot; class=&quot; capa_inputtype  textline&quot;&gt;&lt;div class=&quot;incorrect &quot;&gt;&lt;label class=&quot;problem-group-label&quot; for=&quot;input_97a850ca55b248e3aea8a8506c7121c5_4_1&quot; id=&quot;label_97a850ca55b248e3aea8a8506c7121c5_4_1&quot;&gt;T(C, south, E) =&lt;/label&gt;&lt;input type=&quot;text&quot; name=&quot;input_97a850ca55b248e3aea8a8506c7121c5_4_1&quot; id=&quot;input_97a850ca55b248e3aea8a8506c7121c5_4_1&quot; aria-describedby=&quot;status_97a850ca55b248e3aea8a8506c7121c5_4_1&quot; value=&quot;2&quot; size=&quot;20&quot;/&gt;&lt;span class=&quot;trailing_text&quot; id=&quot;trailing_text_97a850ca55b248e3aea8a8506c7121c5_4_1&quot;/&gt;&lt;span class=&quot;status incorrect&quot; id=&quot;status_97a850ca55b248e3aea8a8506c7121c5_4_1&quot; data-tooltip=&quot;This answer is incorrect.&quot;&gt;&lt;span class=&quot;sr&quot;&gt;incorrect&lt;/span&gt;&lt;span class=&quot;status-icon&quot; aria-hidden=&quot;true&quot;/&gt;&lt;/span&gt;&lt;p id=&quot;answer_97a850ca55b248e3aea8a8506c7121c5_4_1&quot; class=&quot;answer&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;solution-span&quot;&gt;&lt;span id=&quot;solution_97a850ca55b248e3aea8a8506c7121c5_solution_3&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;&lt;div class=&quot;wrapper-problem-response&quot; tabindex=&quot;-1&quot; aria-label=&quot;Question 4&quot; role=&quot;group&quot;&gt;&lt;div id=&quot;inputtype_97a850ca55b248e3aea8a8506c7121c5_5_1&quot; class=&quot; capa_inputtype  textline&quot;&gt;&lt;div class=&quot;incorrect &quot;&gt;&lt;label class=&quot;problem-group-label&quot; for=&quot;input_97a850ca55b248e3aea8a8506c7121c5_5_1&quot; id=&quot;label_97a850ca55b248e3aea8a8506c7121c5_5_1&quot;&gt;T(C, south, D) =&lt;/label&gt;&lt;input type=&quot;text&quot; name=&quot;input_97a850ca55b248e3aea8a8506c7121c5_5_1&quot; id=&quot;input_97a850ca55b248e3aea8a8506c7121c5_5_1&quot; aria-describedby=&quot;status_97a850ca55b248e3aea8a8506c7121c5_5_1&quot; value=&quot;2&quot; size=&quot;20&quot;/&gt;&lt;span class=&quot;trailing_text&quot; id=&quot;trailing_text_97a850ca55b248e3aea8a8506c7121c5_5_1&quot;/&gt;&lt;span class=&quot;status incorrect&quot; id=&quot;status_97a850ca55b248e3aea8a8506c7121c5_5_1&quot; data-tooltip=&quot;This answer is incorrect.&quot;&gt;&lt;span class=&quot;sr&quot;&gt;incorrect&lt;/span&gt;&lt;span class=&quot;status-icon&quot; aria-hidden=&quot;true&quot;/&gt;&lt;/span&gt;&lt;p id=&quot;answer_97a850ca55b248e3aea8a8506c7121c5_5_1&quot; class=&quot;answer&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;solution-span&quot;&gt;&lt;span id=&quot;solution_97a850ca55b248e3aea8a8506c7121c5_solution_4&quot;/&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;&lt;br/&gt;&lt;div class=&quot;solution-span&quot;&gt;&lt;span id=&quot;solution_97a850ca55b248e3aea8a8506c7121c5_solution_5&quot;/&gt;&lt;/div&gt;&lt;br/&gt;&lt;/div&gt;
+  &lt;div class=&quot;action&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;problem_id&quot; value=&quot;Question 1: Model-Based RL: Grid&quot; /&gt;
+
+    &lt;div class=&quot;submit-attempt-container&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;submit btn-brand&quot; data-submitting=&quot;Submitting&quot; data-value=&quot;Submit&quot; data-should-enable-submit-button=&quot;True&quot; aria-describedby=&quot;submission_feedback_97a850ca55b248e3aea8a8506c7121c5&quot; &gt;
+          &lt;span class=&quot;submit-label&quot;&gt;Submit&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&quot;submission-feedback&quot; id=&quot;submission_feedback_97a850ca55b248e3aea8a8506c7121c5&quot;&gt;
+        &lt;span class=&quot;sr&quot;&gt;Some problems have options such as save, reset, hints, or show answer. These options follow the Submit button.&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;problem-action-buttons-wrapper&quot;&gt;
+      &lt;span class=&quot;problem-action-button-wrapper&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;reset problem-action-btn btn-default btn-small&quot; data-value=&quot;Reset&quot;&gt;&lt;span class=&quot;icon fa fa-refresh&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;Reset&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;Reset your answer&lt;/span&gt;&lt;/button&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;problem-action-button-wrapper&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;show problem-action-btn btn-default btn-small&quot; aria-describedby=&quot;97a850ca55b248e3aea8a8506c7121c5-problem-title&quot;&gt;&lt;span class=&quot;icon fa fa-info-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;span class=&quot;show-label&quot;&gt;Show Answer&lt;/span&gt;&lt;/button&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+    
+
+
+&lt;div class=&quot;notification warning notification-gentle-alert
+      is-hidden&quot;
+     tabindex=&quot;-1&quot;&gt;
+    &lt;span class=&quot;icon fa fa-exclamation-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;notification-message&quot; aria-describedby=&quot;97a850ca55b248e3aea8a8506c7121c5-problem-title&quot;&gt;
+    &lt;/span&gt;
+    &lt;div class=&quot;notification-btn-wrapper&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-default btn-small notification-btn review-btn sr&quot;&gt;Review&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+    
+
+
+&lt;div class=&quot;notification warning notification-save
+      is-hidden&quot;
+     tabindex=&quot;-1&quot;&gt;
+    &lt;span class=&quot;icon fa fa-save&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;notification-message&quot; aria-describedby=&quot;97a850ca55b248e3aea8a8506c7121c5-problem-title&quot;&gt;None
+    &lt;/span&gt;
+    &lt;div class=&quot;notification-btn-wrapper&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-default btn-small notification-btn review-btn sr&quot;&gt;Review&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+    
+
+
+&lt;div class=&quot;notification general notification-show-answer
+      is-hidden&quot;
+     tabindex=&quot;-1&quot;&gt;
+    &lt;span class=&quot;icon fa fa-info-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;notification-message&quot; aria-describedby=&quot;97a850ca55b248e3aea8a8506c7121c5-problem-title&quot;&gt;Answers are displayed within the problem
+    &lt;/span&gt;
+    &lt;div class=&quot;notification-btn-wrapper&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-default btn-small notification-btn review-btn sr&quot;&gt;Review&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+" data-graded="False">
+
+
+
+<h3 class="hd hd-3 problem-header" id="97a850ca55b248e3aea8a8506c7121c5-problem-title" aria-describedby="block-v1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5-problem-progress" tabindex="-1">
+  Question 1: Model-Based RL: Grid
+</h3>
+
+<div class="problem-progress" id="block-v1:AU+CS_AI+2018_Spring+type@problem+block@97a850ca55b248e3aea8a8506c7121c5-problem-progress">0.0/4.0 points (ungraded)</div>
+
+<div class="problem">
+  <div><img src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/hw5_q1.png" width="300" align="middle"><br><br><br><br><p><b>Conisder the observed episodes below :</b></p><br><style>
+
+table {
+    border: 1px solid black;
+      display: inline-block;
+}
+
+td {
+    border: none;
+}
+
+</style><table><caption><b>Episode 1</b></caption><tbody><tr><td><b>A,</b></td><td><b>south,</b></td><td><b>C,</b></td><td><b>-1.2</b></td></tr><tr><td><b>C,</b></td><td><b>south,</b></td><td><b>D</b></td><td><b>0.3</b></td></tr><tr><td><b>D,</b></td><td><b>exit,</b></td><td><b>X,</b></td><td><b>-10</b></td></tr></tbody></table><table><caption><b>Episode 2</b></caption><tbody><tr><td><b>B,</b></td><td><b>east,</b></td><td><b>C,</b></td><td><b>-1.1</b></td></tr><tr><td><b>C,</b></td><td><b>south,</b></td><td><b>D,</b></td><td><b>0.3</b></td></tr><tr><td><b>D,</b></td><td><b>exit,</b></td><td><b>X,</b></td><td><b>-10</b></td></tr></tbody></table><table><caption><b>Episode 3</b></caption><tbody><tr><td><b>B,</b></td><td><b>east,</b></td><td><b>C,</b></td><td><b>-1.1</b></td></tr><tr><td><b>C,</b></td><td><b>south,</b></td><td><b>E,</b></td><td><b>0.0</b></td></tr><tr><td><b>E,</b></td><td><b>exit,</b></td><td><b>X,</b></td><td><b>20</b></td></tr></tbody></table><table><caption><b>Episode 4</b></caption><tbody><tr><td><b>A,</b></td><td><b>south,</b></td><td><b>C,</b></td><td><b>-1.2</b></td></tr><tr><td><b>C,</b></td><td><b>south,</b></td><td><b>E,</b></td><td><b>0.0</b></td></tr><tr><td><b>E,</b></td><td><b>exit,</b></td><td><b>X,</b></td><td><b>20</b></td></tr></tbody></table><br><br><br><br><p><b>What model would be learned from the above observed episodes?</b></p><br><br><div class="wrapper-problem-response" tabindex="-1" aria-label="Question 1" role="group"><div id="inputtype_97a850ca55b248e3aea8a8506c7121c5_2_1" class=" capa_inputtype  textline"><div class="incorrect "><label class="problem-group-label" for="input_97a850ca55b248e3aea8a8506c7121c5_2_1" id="label_97a850ca55b248e3aea8a8506c7121c5_2_1">T(A, south, C) =</label><input type="text" name="input_97a850ca55b248e3aea8a8506c7121c5_2_1" id="input_97a850ca55b248e3aea8a8506c7121c5_2_1" aria-describedby="status_97a850ca55b248e3aea8a8506c7121c5_2_1" value="2" size="20"><span class="trailing_text" id="trailing_text_97a850ca55b248e3aea8a8506c7121c5_2_1"></span><span class="status incorrect" id="status_97a850ca55b248e3aea8a8506c7121c5_2_1" data-tooltip="This answer is incorrect."><span class="sr">incorrect</span><span class="status-icon" aria-hidden="true"></span></span><p id="answer_97a850ca55b248e3aea8a8506c7121c5_2_1" class="answer"></p></div></div><div class="solution-span"><span id="solution_97a850ca55b248e3aea8a8506c7121c5_solution_1"></span></div></div><br><div class="wrapper-problem-response" tabindex="-1" aria-label="Question 2" role="group"><div id="inputtype_97a850ca55b248e3aea8a8506c7121c5_3_1" class=" capa_inputtype  textline"><div class="incorrect "><label class="problem-group-label" for="input_97a850ca55b248e3aea8a8506c7121c5_3_1" id="label_97a850ca55b248e3aea8a8506c7121c5_3_1">T(B, east, C) =</label><input type="text" name="input_97a850ca55b248e3aea8a8506c7121c5_3_1" id="input_97a850ca55b248e3aea8a8506c7121c5_3_1" aria-describedby="status_97a850ca55b248e3aea8a8506c7121c5_3_1" value="2" size="20"><span class="trailing_text" id="trailing_text_97a850ca55b248e3aea8a8506c7121c5_3_1"></span><span class="status incorrect" id="status_97a850ca55b248e3aea8a8506c7121c5_3_1" data-tooltip="This answer is incorrect."><span class="sr">incorrect</span><span class="status-icon" aria-hidden="true"></span></span><p id="answer_97a850ca55b248e3aea8a8506c7121c5_3_1" class="answer"></p></div></div><div class="solution-span"><span id="solution_97a850ca55b248e3aea8a8506c7121c5_solution_2"></span></div></div><br><div class="wrapper-problem-response" tabindex="-1" aria-label="Question 3" role="group"><div id="inputtype_97a850ca55b248e3aea8a8506c7121c5_4_1" class=" capa_inputtype  textline"><div class="incorrect "><label class="problem-group-label" for="input_97a850ca55b248e3aea8a8506c7121c5_4_1" id="label_97a850ca55b248e3aea8a8506c7121c5_4_1">T(C, south, E) =</label><input type="text" name="input_97a850ca55b248e3aea8a8506c7121c5_4_1" id="input_97a850ca55b248e3aea8a8506c7121c5_4_1" aria-describedby="status_97a850ca55b248e3aea8a8506c7121c5_4_1" value="2" size="20"><span class="trailing_text" id="trailing_text_97a850ca55b248e3aea8a8506c7121c5_4_1"></span><span class="status incorrect" id="status_97a850ca55b248e3aea8a8506c7121c5_4_1" data-tooltip="This answer is incorrect."><span class="sr">incorrect</span><span class="status-icon" aria-hidden="true"></span></span><p id="answer_97a850ca55b248e3aea8a8506c7121c5_4_1" class="answer"></p></div></div><div class="solution-span"><span id="solution_97a850ca55b248e3aea8a8506c7121c5_solution_3"></span></div></div><br><div class="wrapper-problem-response" tabindex="-1" aria-label="Question 4" role="group"><div id="inputtype_97a850ca55b248e3aea8a8506c7121c5_5_1" class=" capa_inputtype  textline"><div class="incorrect "><label class="problem-group-label" for="input_97a850ca55b248e3aea8a8506c7121c5_5_1" id="label_97a850ca55b248e3aea8a8506c7121c5_5_1">T(C, south, D) =</label><input type="text" name="input_97a850ca55b248e3aea8a8506c7121c5_5_1" id="input_97a850ca55b248e3aea8a8506c7121c5_5_1" aria-describedby="status_97a850ca55b248e3aea8a8506c7121c5_5_1" value="2" size="20"><span class="trailing_text" id="trailing_text_97a850ca55b248e3aea8a8506c7121c5_5_1"></span><span class="status incorrect" id="status_97a850ca55b248e3aea8a8506c7121c5_5_1" data-tooltip="This answer is incorrect."><span class="sr">incorrect</span><span class="status-icon" aria-hidden="true"></span></span><p id="answer_97a850ca55b248e3aea8a8506c7121c5_5_1" class="answer"></p></div></div><div class="solution-span"><span id="solution_97a850ca55b248e3aea8a8506c7121c5_solution_4"></span></div></div><br><br><div class="solution-span"><span id="solution_97a850ca55b248e3aea8a8506c7121c5_solution_5"></span></div><br></div>
+  <div class="action">
+    <input type="hidden" name="problem_id" value="Question 1: Model-Based RL: Grid">
+
+    <div class="submit-attempt-container">
+      <button type="button" class="submit btn-brand" data-submitting="Submitting" data-value="Submit" data-should-enable-submit-button="True" aria-describedby="submission_feedback_97a850ca55b248e3aea8a8506c7121c5">
+          <span class="submit-label">Submit</span>
+      </button>
+      <div class="submission-feedback" id="submission_feedback_97a850ca55b248e3aea8a8506c7121c5">
+        <span class="sr">Some problems have options such as save, reset, hints, or show answer. These options follow the Submit button.</span>
+      </div>
+    </div>
+    <div class="problem-action-buttons-wrapper">
+      <span class="problem-action-button-wrapper">
+          <button type="button" class="reset problem-action-btn btn-default btn-small" data-value="Reset"><span class="icon fa fa-refresh" aria-hidden="true"></span><span aria-hidden="true">Reset</span><span class="sr">Reset your answer</span></button>
+      </span>
+      <span class="problem-action-button-wrapper">
+          <button type="button" class="show problem-action-btn btn-default btn-small" aria-describedby="97a850ca55b248e3aea8a8506c7121c5-problem-title"><span class="icon fa fa-info-circle" aria-hidden="true"></span><span class="show-label">Show Answer</span></button>
+      </span>
+    </div>
+  </div>
+    
+
+
+<div class="notification warning notification-gentle-alert
+      is-hidden" tabindex="-1">
+    <span class="icon fa fa-exclamation-circle" aria-hidden="true"></span>
+    <span class="notification-message" aria-describedby="97a850ca55b248e3aea8a8506c7121c5-problem-title">
+    </span>
+    <div class="notification-btn-wrapper">
+        <button type="button" class="btn btn-default btn-small notification-btn review-btn sr">Review</button>
+    </div>
+</div>
+
+    
+
+
+<div class="notification warning notification-save
+      is-hidden" tabindex="-1">
+    <span class="icon fa fa-save" aria-hidden="true"></span>
+    <span class="notification-message" aria-describedby="97a850ca55b248e3aea8a8506c7121c5-problem-title">None
+    </span>
+    <div class="notification-btn-wrapper">
+        <button type="button" class="btn btn-default btn-small notification-btn review-btn sr">Review</button>
+    </div>
+</div>
+
+    
+
+
+<div class="notification general notification-show-answer
+      is-hidden" tabindex="-1">
+    <span class="icon fa fa-info-circle" aria-hidden="true"></span>
+    <span class="notification-message" aria-describedby="97a850ca55b248e3aea8a8506c7121c5-problem-title">Answers are displayed within the problem
+    </span>
+    <div class="notification-btn-wrapper">
+        <button type="button" class="btn btn-default btn-small notification-btn review-btn sr">Review</button>
+    </div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+        </article>
+
+    <!-- footer for xblock_aside -->
+    </section>
+
+        </li>
+
+    </ol>
+<div class="add-xblock-component new-component-item adding">
+    <div class="new-component">
+    <h5>Add New Component</h5>
+    <ul class="new-component-type">
+    <li>
+    
+<button type="button" class="single-template add-xblock-component-button" data-type="discussion" data-category="discussion">
+
+  <span class="large-template-icon large-discussion-icon"></span>
+  <span class="sr"> Add Component:</span>
+  <span class="name">Discussion</span>
+</button>
+
+</li><li>
+    
+<button type="button" class="multiple-templates add-xblock-component-button" data-type="html">
+
+  <span class="large-template-icon large-html-icon"></span>
+  <span class="sr"> Add Component:</span>
+  <span class="name">HTML</span>
+</button>
+
+</li><li>
+    
+<button type="button" class="multiple-templates add-xblock-component-button" data-type="problem">
+
+  <span class="large-template-icon large-problem-icon"></span>
+  <span class="sr"> Add Component:</span>
+  <span class="name">Problem</span>
+</button>
+
+</li><li>
+    
+<button type="button" class="single-template add-xblock-component-button" data-type="video" data-category="video">
+
+  <span class="large-template-icon large-video-icon"></span>
+  <span class="sr"> Add Component:</span>
+  <span class="name">Video</span>
+</button>
+
+</li></ul>
+</div>
+
+<div class="new-component-templates new-component-discussion">
+    
+
+</div><div class="new-component-templates new-component-html">
+    
+    <div class="tab current" id="tab1" tabindex="-1" role="dialog" aria-label="html Component Template Menu">
+        <ul class="new-component-template">
+            
+                
+                <li class="editor-md empty">
+                    <button type="button" class="button-component" data-category="html">
+                        
+    
+
+
+                        <span class="name">Text</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-md">
+                    <button type="button" class="button-component" data-category="html" data-boilerplate="announcement.yaml">
+                        
+    
+
+
+                        <span class="name">Announcement</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-md">
+                    <button type="button" class="button-component" data-category="html" data-boilerplate="anon_user_id.yaml">
+                        
+    
+
+
+                        <span class="name">Anonymous User ID</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-md">
+                    <button type="button" class="button-component" data-category="html" data-boilerplate="image_modal.yaml">
+                        
+    
+
+
+                        <span class="name">Full Screen Image Tool</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-md">
+                    <button type="button" class="button-component" data-category="html" data-boilerplate="iframe.yaml">
+                        
+    
+
+
+                        <span class="name">IFrame Tool</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-md">
+                    <button type="button" class="button-component" data-category="html" data-boilerplate="raw.yaml">
+                        
+    
+
+
+                        <span class="name">Raw HTML</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-md">
+                    <button type="button" class="button-component" data-category="html" data-boilerplate="zooming_image.yaml">
+                        
+    
+
+
+                        <span class="name">Zooming Image Tool</span>
+                    </button>
+                </li>
+                
+            
+        </ul>
+        <button class="cancel-button" data-type="html">Cancel</button>
+        
+    
+
+
+    </div>
+
+
+</div><div class="new-component-templates new-component-problem">
+    <div class="tab-group tabs ui-tabs ui-widget ui-widget-content ui-corner-all" tabindex="-1" role="dialog" aria-label="problem Component Template Menu">
+    <ul class="problem-type-tabs nav-tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" tabindex="-1" role="tablist">
+        <li class="current ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab1" aria-labelledby="ui-id-1" aria-selected="true">
+            <a class="link-tab ui-tabs-anchor" href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1#tab1" role="presentation" tabindex="-1" id="ui-id-1">Common Problem Types</a>
+        </li>
+        <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab2" aria-labelledby="ui-id-2" aria-selected="false">
+            <a class="link-tab ui-tabs-anchor" href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1#tab2" role="presentation" tabindex="-1" id="ui-id-2">Advanced</a>
+        </li>
+    </ul>
+    <div class="tab current ui-tabs-panel ui-widget-content ui-corner-bottom" id="tab1" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false" style="display: block;">
+        <ul class="new-component-template">
+            
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="blank_common.yaml">
+                            
+    
+
+
+                            <span class="name">Blank Common Problem</span>
+                        </button>
+                    </li>
+                    
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="checkboxes_response.yaml">
+                            
+    
+
+
+                            <span class="name">Checkboxes</span>
+                        </button>
+                    </li>
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="optionresponse.yaml">
+                            
+    
+
+
+                            <span class="name">Dropdown</span>
+                        </button>
+                    </li>
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="multiplechoice.yaml">
+                            
+    
+
+
+                            <span class="name">Multiple Choice</span>
+                        </button>
+                    </li>
+                    
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="numericalresponse.yaml">
+                            
+    
+
+
+                            <span class="name">Numerical Input</span>
+                        </button>
+                    </li>
+                    
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="string_response.yaml">
+                            
+    
+
+
+                            <span class="name">Text Input</span>
+                        </button>
+                    </li>
+                    
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="checkboxes_response_hint.yaml">
+                            
+    
+
+
+                            <span class="name">Checkboxes with Hints and Feedback</span>
+                        </button>
+                    </li>
+                    
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="optionresponse_hint.yaml">
+                            
+    
+
+
+                            <span class="name">Dropdown with Hints and Feedback</span>
+                        </button>
+                    </li>
+                    
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="multiplechoice_hint.yaml">
+                            
+    
+
+
+                            <span class="name">Multiple Choice with Hints and Feedback</span>
+                        </button>
+                    </li>
+                    
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="numericalresponse_hint.yaml">
+                            
+    
+
+
+                            <span class="name">Numerical Input with Hints and Feedback</span>
+                        </button>
+                    </li>
+                    
+                
+            
+                
+                    
+                    <li class="editor-md">
+                        <button type="button" class="button-component" data-category="problem" data-boilerplate="string_response_hint.yaml">
+                            
+    
+
+
+                            <span class="name">Text Input with Hints and Feedback</span>
+                        </button>
+                    </li>
+                    
+                
+            
+        </ul>
+    </div>
+    <div class="tab ui-tabs-panel ui-widget-content ui-corner-bottom" id="tab2" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+        <ul class="new-component-template">
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="problem" data-boilerplate="">
+                        
+    
+
+
+                        <span class="name">Blank Advanced Problem</span>
+                    </button>
+                </li>
+                
+            
+                
+            
+                
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="problem" data-boilerplate="circuitschematic.yaml">
+                        
+    
+
+
+                        <span class="name">Circuit Schematic Builder</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="problem" data-boilerplate="jsinput_response.yaml">
+                        
+    
+
+
+                        <span class="name">Custom JavaScript Display and Grading</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="problem" data-boilerplate="customgrader.yaml">
+                        
+    
+
+
+                        <span class="name">Custom Python-Evaluated Input</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="drag-and-drop-v2" data-boilerplate="">
+                        
+    
+
+
+                        <span class="name">Drag and Drop</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="problem" data-boilerplate="drag_and_drop.yaml">
+                        
+    
+
+
+                        <span class="name">Drag and Drop (Deprecated Version)</span>
+                    </button>
+                </li>
+                
+            
+                
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="problem" data-boilerplate="imageresponse.yaml">
+                        
+    
+
+
+                        <span class="name">Image Mapped Input</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="problem" data-boilerplate="formularesponse.yaml">
+                        
+    
+
+
+                        <span class="name">Math Expression Input</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="problem" data-boilerplate="jsme.yaml">
+                        
+    
+
+
+                        <span class="name">Molecular Structure</span>
+                    </button>
+                </li>
+                
+            
+                
+            
+                
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="openassessment" data-boilerplate="">
+                        
+    
+
+
+                        <span class="name">Open Response Assessment</span>
+                    </button>
+                </li>
+                
+            
+                
+                <li class="editor-manual">
+                    <button type="button" class="button-component" data-category="problem" data-boilerplate="problem_with_hint.yaml">
+                        
+    
+
+
+                        <span class="name">Problem with Adaptive Hint</span>
+                    </button>
+                </li>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        </ul>
+    </div>
+    <button class="cancel-button" data-type="problem">Cancel</button>
+    
+    
+
+
+</div>
+
+</div><div class="new-component-templates new-component-video">
+    
+
+</div></div>
+
+</div>
+
+        </article>
+
+</section>
+                <div class="ui-loading is-hidden">
+                    <p><span class="spin"><span class="icon fa fa-refresh" aria-hidden="true"></span></span> <span class="copy">Loading</span></p>
+                </div>
+            </article>
+            <aside class="content-supplementary" role="complementary">
+                    <div id="publish-unit">
+    
+<div class="bit-publishing has-warnings is-scheduled">
+    <h3 class="bar-mod-title pub-status"><span class="sr">Publishing Status</span>
+        Draft (Never published)
+    </h3>
+
+    <div class="wrapper-last-draft bar-mod-content">
+        <p class="copy meta">
+            
+                Draft saved on <span class="date">May 14, 2018 at 15:06 UTC</span> by <span class="user">Ahmedik</span>
+            
+        </p>
+    </div>
+
+    
+        <div class="wrapper-release bar-mod-content">
+            <h5 class="title">Release:</h5>
+            <p class="copy">
+                
+                    <span class="release-date">Jan 01, 2018 at 00:00 UTC</span>
+                    <span class="release-with">
+                        with Section "Module 5 : Reinforcement Learning"
+                    </span>
+
+                
+            </p>
+        </div>
+    
+
+    <div class="wrapper-visibility bar-mod-content">
+        <h5 class="title">
+            
+                Will Be Visible To:
+            
+        </h5>
+        
+            <p class="visbility-copy copy">Staff and Learners</p>
+        
+        <ul class="actions-inline">
+            <li class="action-inline">
+                <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1" class="action-staff-lock" role="button" aria-pressed="false">
+                
+                    <span class="icon fa fa-square-o" aria-hidden="true"></span>
+                
+                Hide from learners
+            </a>
+            </li>
+        </ul>
+        <p>
+            Note: Do not hide graded assignments after they have been released.
+        </p>
+    </div>
+
+    <div class="wrapper-pub-actions bar-mod-actions">
+        <ul class="action-list">
+            <li class="action-item">
+                <a class="action-publish action-primary " href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1" aria-disabled="false">Publish
+                </a>
+            </li>
+            <li class="action-item">
+                <a class="action-discard action-secondary is-disabled" href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1" aria-disabled="true">Discard Changes
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</div>
+                    <div id="publish-history" class="unit-publish-history">
+    
+
+<div class="wrapper-last-publish">
+    <p class="copy">Never published</p>
+</div>
+
+</div>
+                    <div class="unit-location">
+                        <h4 class="bar-mod-title">Unit Location</h4>
+                        <div class="wrapper-unit-id bar-mod-content">
+                            <h5 class="title">Location ID</h5>
+                            <p class="unit-id">
+                                <span class="unit-id-value" id="unit-location-id-input">b0d032c566404db29c6a6e81b97753d1</span>
+                                <span class="tip"><span class="sr">Tip: </span>To create a link to this unit from an HTML component in this course, enter "/jump_to_id/&lt;location ID&gt;" as the URL value.</span>
+                            </p>
+                        </div>
+                        <div class="wrapper-unit-tree-location bar-mod-content">
+                            <h5 class="title">Location in Course Outline</h5>
+                            <div class="wrapper-unit-overview outline outline-simple">
+    
+
+        <div class="unit-content outline-content">
+            <ol class="list-unknown">
+            <div>
+    
+
+        <div class="course-content outline-content">
+            <ol class="list-sections">
+            <li class="outline-item outline-section is-live " data-parent="block-v1:AU+CS_AI+2018_Spring+type@course+block@course" data-locator="block-v1:AU+CS_AI+2018_Spring+type@chapter+block@02708b22cdd84505ae67d99c56e6de3a">
+        <div class="section-header">
+            <h3 class="section-header-details">
+                <span class="section-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/course/course-v1:AU+CS_AI+2018_Spring?show=block-v1%3AAU%2BCS_AI%2B2018_Spring%2Btype%40chapter%2Bblock%4002708b22cdd84505ae67d99c56e6de3a">Module 5 : Reinforcement Learning</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="section-content outline-content">
+            <ol class="list-subsections">
+            <li class="outline-item outline-subsection has-warnings " data-parent="block-v1:AU+CS_AI+2018_Spring+type@chapter+block@02708b22cdd84505ae67d99c56e6de3a" data-locator="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314">
+        <div class="subsection-header">
+            <h3 class="subsection-header-details">
+                <span class="subsection-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/course/course-v1:AU+CS_AI+2018_Spring?show=block-v1%3AAU%2BCS_AI%2B2018_Spring%2Btype%40sequential%2Bblock%405391b43112e54c3382b99d0abed82314">Homeworks</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="subsection-content outline-content">
+            <ol class="list-units">
+            <li class="outline-item outline-unit has-warnings is-current" data-parent="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1">
+        <div class="unit-header">
+            <h3 class="unit-header-details">
+                <span class="unit-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1">Homework 5 Question 1: Model-Based RL: Grid</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="unit-content outline-content">
+            <ol class="list-unknown">
+            </ol>
+            
+        </div>
+
+
+    </li><li class="outline-item outline-unit has-warnings " data-parent="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@8f3c794174744671ab773a60bb7f0e18">
+        <div class="unit-header">
+            <h3 class="unit-header-details">
+                <span class="unit-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@8f3c794174744671ab773a60bb7f0e18">Homework 5 Question 2 : Model Based RL : Cycle</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="unit-content outline-content">
+            <ol class="list-unknown">
+            </ol>
+            
+        </div>
+
+
+    </li><li class="outline-item outline-unit has-warnings " data-parent="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@a0d5072e64f143528cdd9c745a76c1b9">
+        <div class="unit-header">
+            <h3 class="unit-header-details">
+                <span class="unit-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@a0d5072e64f143528cdd9c745a76c1b9">Homework 5 Question 3: Direct Evaluation</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="unit-content outline-content">
+            <ol class="list-unknown">
+            </ol>
+            
+        </div>
+
+
+    </li><li class="outline-item outline-unit has-warnings " data-parent="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@0276a75062c24b2baa09fc710064f25d">
+        <div class="unit-header">
+            <h3 class="unit-header-details">
+                <span class="unit-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@0276a75062c24b2baa09fc710064f25d">Homework 5 Question 4: Temporal Difference Learning</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="unit-content outline-content">
+            <ol class="list-unknown">
+            </ol>
+            
+        </div>
+
+
+    </li><li class="outline-item outline-unit has-warnings " data-parent="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b830ed9c90cb4bc5b750b8383b7faef2">
+        <div class="unit-header">
+            <h3 class="unit-header-details">
+                <span class="unit-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b830ed9c90cb4bc5b750b8383b7faef2">Homework 5 Question 5: Model-Free RL: Cycle</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="unit-content outline-content">
+            <ol class="list-unknown">
+            </ol>
+            
+        </div>
+
+
+    </li><li class="outline-item outline-unit has-warnings " data-parent="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@55a3ca158499440092d3691014f6fd75">
+        <div class="unit-header">
+            <h3 class="unit-header-details">
+                <span class="unit-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@55a3ca158499440092d3691014f6fd75">Homework 5 Question 6 : Q-Learning Properties</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="unit-content outline-content">
+            <ol class="list-unknown">
+            </ol>
+            
+        </div>
+
+
+    </li><li class="outline-item outline-unit has-warnings " data-parent="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@e2a8e2a4ad4744ed84f71587b1ae9482">
+        <div class="unit-header">
+            <h3 class="unit-header-details">
+                <span class="unit-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@e2a8e2a4ad4744ed84f71587b1ae9482">Homework 5 Question 7: Exploration and Exploitation</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="unit-content outline-content">
+            <ol class="list-unknown">
+            </ol>
+            
+        </div>
+
+
+    </li><li class="outline-item outline-unit has-warnings " data-parent="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@c6d01707f061413394acbc3baeddfe14">
+        <div class="unit-header">
+            <h3 class="unit-header-details">
+                <span class="unit-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@c6d01707f061413394acbc3baeddfe14">Homework 5 Question 8: Feature-Based Representation: Actions</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="unit-content outline-content">
+            <ol class="list-unknown">
+            </ol>
+            
+        </div>
+
+
+    </li><li class="outline-item outline-unit has-warnings " data-parent="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314" data-locator="block-v1:AU+CS_AI+2018_Spring+type@vertical+block@e83c9dde10f248e9906fffc6466ee30f">
+        <div class="unit-header">
+            <h3 class="unit-header-details">
+                <span class="unit-title item-title">
+                    <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@e83c9dde10f248e9906fffc6466ee30f">Homework 5 Question 9: Feature-Based Representation: Update</a>
+                </span>
+            </h3>
+        </div>
+
+
+        <div class="unit-content outline-content">
+            <ol class="list-unknown">
+            </ol>
+            
+        </div>
+
+
+    </li></ol>
+            
+                <div class="add-unit add-item">
+                    <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1#" class="button button-new" data-category="vertical" data-parent="block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314" data-default-name="Unit">
+                        <span class="icon fa fa-plus" aria-hidden="true"></span>New Unit
+                    </a>
+                </div>
+            
+        </div>
+
+
+    </li></ol>
+            
+        </div>
+
+
+    </li></ol>
+            
+        </div>
+
+
+
+</div></ol>
+            
+        </div>
+
+
+
+</div>
+                        </div>
+                    </div>
+            </aside>
+        </section>
+    </div>
+</div>
+
+        </div>
+      </main>
+
+        
+
+<div class="wrapper-sock wrapper">
+  <ul class="list-actions list-cta">
+    <li class="action-item">
+      <a href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1#sock" class="cta cta-show-sock"><span class="icon fa fa-question-circle" aria-hidden="true"></span>
+        <span class="copy-show is-shown">Looking for help with Studio?</span>
+        <span class="copy-hide is-hidden">Hide Studio Help</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="wrapper-inner wrapper">
+    <section class="sock" id="sock" aria-labelledby="sock-heading">
+        <h2 id="sock-heading" class="title sr-only">Studio Documentation</h2>
+      <div class="support">
+        
+
+        <ul class="list-actions">
+              <li class="action-item">
+                <a href="http://docs.edx.org/" title="Access documentation on http://docs.edx.org" rel="external" class="action action-primary" target="_blank">edX Documentation</a>
+                <span class="tip">Access documentation on http://docs.edx.org</span>
+              </li>
+              <li class="action-item">
+                <a href="https://open.edx.org/" title="Access the Open edX Portal" rel="external" class="action action-primary" target="_blank">Open edX Portal</a>
+                <span class="tip">Access the Open edX Portal</span>
+              </li>
+              <li class="action-item">
+                <a href="https://www.edx.org/course/overview-creating-edx-course-edx-edx101#.VO4eaLPF-n1" title="Enroll in edX101: Overview of Creating an edX Course" rel="external" class="action action-primary" target="_blank">Enroll in edX101</a>
+                <span class="tip">Enroll in edX101: Overview of Creating an edX Course</span>
+              </li>
+              <li class="action-item">
+                <a href="https://www.edx.org/course/creating-course-edx-studio-edx-studiox" title="Enroll in StudioX: Creating a Course with edX Studio" rel="external" class="action action-primary" target="_blank">Enroll in StudioX</a>
+                <span class="tip">Enroll in StudioX: Creating a Course with edX Studio</span>
+              </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+
+      
+
+<div class="wrapper-footer wrapper">
+  <footer class="primary" role="contentinfo">
+
+    <div class="footer-content-primary">
+      <div class="colophon">
+        <p>© 2018 <a data-rel="edx.org" href="http://edxdemo.arbisoft.com:18010/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1#" rel="external" title="This link will open in a new browser window/tab" target="_blank">Arbisoft Open edX Demo</a>.</p>
+      </div>
+
+    </div>
+
+    <div class="footer-content-secondary" aria-label="Legal">
+      <div class="footer-about-copyright">
+        <p>
+          EdX, Open edX, Studio, and the edX and Open edX logos are registered trademarks or trademarks of <a data-rel="edx.org" href="https://www.edx.org/">edX Inc.</a>
+        </p>
+      </div>
+
+      <div class="footer-about-openedx">
+        <a href="http://open.edx.org/" title="Powered by Open edX">
+          <img alt="Powered by Open edX" src="./Homework 5 Question 1_ Model-Based RL_ Grid Unit _ Artificial Intelligence _ Studio_files/edx-openedx-logo-tag.png">
+        </a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+
+      <div id="page-notification"></div>
+    </div>
+
+    <div id="page-prompt"></div>
+
+    
+
+    
+    <script type="text/javascript">
+      require(['js/factories/base'], function () {
+          require(['js/models/course'], function(Course) {
+                  window.course = new Course({
+                      id: "course\u002Dv1:AU+CS_AI+2018_Spring",
+                      name: "Artificial Intelligence",
+                      url_name: "course",
+                      org: "AU",
+                      num: "CS_AI",
+                      display_course_number: "",
+                      revision: "",
+                      self_paced: false
+                  });
+                  require(['js/sock']);
+              
+    require(["js/factories/container"], function(ContainerFactory) {
+        ContainerFactory(
+            [{"templates": [{"category": "discussion", "display_name": "Discussion", "hinted": false, "support_level": true, "boilerplate_name": null, "tab": "advanced"}], "display_name": "Discussion", "type": "discussion", "support_legend": {"show_legend": false, "allow_unsupported_xblocks": false, "documentation_label": "Arbisoft Open edX Demo Support Levels:"}}, {"templates": [{"category": "html", "display_name": "Text", "hinted": false, "support_level": true, "boilerplate_name": null, "tab": "advanced"}, {"category": "html", "display_name": "Raw HTML", "hinted": false, "support_level": true, "boilerplate_name": "raw.yaml", "tab": "advanced"}, {"category": "html", "display_name": "Full Screen Image Tool", "hinted": false, "support_level": true, "boilerplate_name": "image_modal.yaml", "tab": "advanced"}, {"category": "html", "display_name": "Zooming Image Tool", "hinted": false, "support_level": true, "boilerplate_name": "zooming_image.yaml", "tab": "advanced"}, {"category": "html", "display_name": "Anonymous User ID", "hinted": false, "support_level": true, "boilerplate_name": "anon_user_id.yaml", "tab": "advanced"}, {"category": "html", "display_name": "IFrame Tool", "hinted": false, "support_level": true, "boilerplate_name": "iframe.yaml", "tab": "advanced"}, {"category": "html", "display_name": "Announcement", "hinted": false, "support_level": true, "boilerplate_name": "announcement.yaml", "tab": "advanced"}], "display_name": "HTML", "type": "html", "support_legend": {"show_legend": false, "allow_unsupported_xblocks": false, "documentation_label": "Arbisoft Open edX Demo Support Levels:"}}, {"templates": [{"category": "problem", "display_name": "Blank Advanced Problem", "hinted": false, "support_level": true, "boilerplate_name": null, "tab": "advanced"}, {"category": "problem", "display_name": "Problem with Adaptive Hint", "hinted": false, "support_level": true, "boilerplate_name": "problem_with_hint.yaml", "tab": "advanced"}, {"category": "problem", "display_name": "Checkboxes", "hinted": false, "support_level": true, "boilerplate_name": "checkboxes_response.yaml", "tab": "common"}, {"category": "problem", "display_name": "Image Mapped Input", "hinted": false, "support_level": true, "boilerplate_name": "imageresponse.yaml", "tab": "advanced"}, {"category": "problem", "display_name": "Checkboxes with Hints and Feedback", "hinted": true, "support_level": true, "boilerplate_name": "checkboxes_response_hint.yaml", "tab": "common"}, {"category": "problem", "display_name": "Numerical Input", "hinted": false, "support_level": true, "boilerplate_name": "numericalresponse.yaml", "tab": "common"}, {"category": "problem", "display_name": "Dropdown", "hinted": false, "support_level": true, "boilerplate_name": "optionresponse.yaml", "tab": "common"}, {"category": "problem", "display_name": "Math Expression Input", "hinted": false, "support_level": true, "boilerplate_name": "formularesponse.yaml", "tab": "advanced"}, {"category": "problem", "display_name": "Multiple Choice with Hints and Feedback", "hinted": true, "support_level": true, "boilerplate_name": "multiplechoice_hint.yaml", "tab": "common"}, {"category": "problem", "display_name": "Dropdown with Hints and Feedback", "hinted": true, "support_level": true, "boilerplate_name": "optionresponse_hint.yaml", "tab": "common"}, {"category": "problem", "display_name": "Custom Python-Evaluated Input", "hinted": false, "support_level": true, "boilerplate_name": "customgrader.yaml", "tab": "advanced"}, {"category": "problem", "display_name": "Drag and Drop (Deprecated Version)", "hinted": false, "support_level": true, "boilerplate_name": "drag_and_drop.yaml", "tab": "advanced"}, {"category": "problem", "display_name": "Custom JavaScript Display and Grading", "hinted": false, "support_level": true, "boilerplate_name": "jsinput_response.yaml", "tab": "advanced"}, {"category": "problem", "display_name": "Circuit Schematic Builder", "hinted": false, "support_level": true, "boilerplate_name": "circuitschematic.yaml", "tab": "advanced"}, {"category": "problem", "display_name": "Numerical Input with Hints and Feedback", "hinted": true, "support_level": true, "boilerplate_name": "numericalresponse_hint.yaml", "tab": "common"}, {"category": "problem", "display_name": "Blank Common Problem", "hinted": false, "support_level": true, "boilerplate_name": "blank_common.yaml", "tab": "common"}, {"category": "problem", "display_name": "Text Input with Hints and Feedback", "hinted": true, "support_level": true, "boilerplate_name": "string_response_hint.yaml", "tab": "common"}, {"category": "problem", "display_name": "Multiple Choice", "hinted": false, "support_level": true, "boilerplate_name": "multiplechoice.yaml", "tab": "common"}, {"category": "problem", "display_name": "Text Input", "hinted": false, "support_level": true, "boilerplate_name": "string_response.yaml", "tab": "common"}, {"category": "problem", "display_name": "Molecular Structure", "hinted": false, "support_level": true, "boilerplate_name": "jsme.yaml", "tab": "advanced"}, {"category": "openassessment", "display_name": "Open Response Assessment", "hinted": false, "support_level": true, "boilerplate_name": null, "tab": "advanced"}, {"category": "drag-and-drop-v2", "display_name": "Drag and Drop", "hinted": false, "support_level": true, "boilerplate_name": null, "tab": "advanced"}], "display_name": "Problem", "type": "problem", "support_legend": {"show_legend": false, "allow_unsupported_xblocks": false, "documentation_label": "Arbisoft Open edX Demo Support Levels:"}}, {"templates": [{"category": "video", "display_name": "Video", "hinted": false, "support_level": true, "boilerplate_name": null, "tab": "advanced"}], "display_name": "Video", "type": "video", "support_legend": {"show_legend": false, "allow_unsupported_xblocks": false, "documentation_label": "Arbisoft Open edX Demo Support Levels:"}}],
+            {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "edited_by": "Ahmedik", "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "ancestor_info": {"ancestors": [{"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "hide_after_due": false, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@sequential+block@5391b43112e54c3382b99d0abed82314", "category": "sequential", "published_on": "May 04, 2018 at 17:18 UTC", "display_name": "Homeworks", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/course/course-v1:AU+CS_AI+2018_Spring?show=block-v1%3AAU%2BCS_AI%2B2018_Spring%2Btype%40sequential%2Bblock%405391b43112e54c3382b99d0abed82314", "child_info": {"category": "vertical", "display_name": "Unit", "children": [{"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1", "category": "vertical", "published_on": null, "display_name": "Homework 5 Question 1: Model-Based RL: Grid", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1", "start": "2018-01-01T00:00:00Z", "edited_on": "May 14, 2018 at 15:06 UTC", "has_changes": true, "ancestor_has_staff_lock": false, "published": false, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}, {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@8f3c794174744671ab773a60bb7f0e18", "category": "vertical", "published_on": null, "display_name": "Homework 5 Question 2 : Model Based RL : Cycle", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@8f3c794174744671ab773a60bb7f0e18", "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 18:39 UTC", "has_changes": true, "ancestor_has_staff_lock": false, "published": false, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}, {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@a0d5072e64f143528cdd9c745a76c1b9", "category": "vertical", "published_on": null, "display_name": "Homework 5 Question 3: Direct Evaluation", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@a0d5072e64f143528cdd9c745a76c1b9", "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 18:39 UTC", "has_changes": true, "ancestor_has_staff_lock": false, "published": false, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}, {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@0276a75062c24b2baa09fc710064f25d", "category": "vertical", "published_on": null, "display_name": "Homework 5 Question 4: Temporal Difference Learning", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@0276a75062c24b2baa09fc710064f25d", "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 18:40 UTC", "has_changes": true, "ancestor_has_staff_lock": false, "published": false, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}, {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b830ed9c90cb4bc5b750b8383b7faef2", "category": "vertical", "published_on": null, "display_name": "Homework 5 Question 5: Model-Free RL: Cycle", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b830ed9c90cb4bc5b750b8383b7faef2", "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 18:40 UTC", "has_changes": true, "ancestor_has_staff_lock": false, "published": false, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}, {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@55a3ca158499440092d3691014f6fd75", "category": "vertical", "published_on": null, "display_name": "Homework 5 Question 6 : Q-Learning Properties", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@55a3ca158499440092d3691014f6fd75", "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 18:40 UTC", "has_changes": true, "ancestor_has_staff_lock": false, "published": false, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}, {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@e2a8e2a4ad4744ed84f71587b1ae9482", "category": "vertical", "published_on": null, "display_name": "Homework 5 Question 7: Exploration and Exploitation", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@e2a8e2a4ad4744ed84f71587b1ae9482", "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 18:41 UTC", "has_changes": true, "ancestor_has_staff_lock": false, "published": false, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}, {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@c6d01707f061413394acbc3baeddfe14", "category": "vertical", "published_on": null, "display_name": "Homework 5 Question 8: Feature-Based Representation: Actions", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@c6d01707f061413394acbc3baeddfe14", "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 18:41 UTC", "has_changes": true, "ancestor_has_staff_lock": false, "published": false, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}, {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "needs_attention", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@e83c9dde10f248e9906fffc6466ee30f", "category": "vertical", "published_on": null, "display_name": "Homework 5 Question 9: Feature-Based Representation: Update", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@e83c9dde10f248e9906fffc6466ee30f", "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 20:21 UTC", "has_changes": true, "ancestor_has_staff_lock": false, "published": false, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}]}, "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 20:21 UTC", "has_changes": null, "ancestor_has_staff_lock": false, "published": true, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}, {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": "live", "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@chapter+block@02708b22cdd84505ae67d99c56e6de3a", "category": "chapter", "published_on": "May 06, 2018 at 18:36 UTC", "display_name": "Module 5 : Reinforcement Learning", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/course/course-v1:AU+CS_AI+2018_Spring?show=block-v1%3AAU%2BCS_AI%2B2018_Spring%2Btype%40chapter%2Bblock%4002708b22cdd84505ae67d99c56e6de3a", "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 20:21 UTC", "has_changes": null, "ancestor_has_staff_lock": false, "published": true, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}, {"has_explicit_staff_lock": false, "user_partition_info": {"selected_groups_label": "", "selected_partition_index": -1, "selectable_partitions": []}, "graded": false, "due_date": "", "has_children": true, "explanatory_message": null, "visibility_state": null, "released_to_students": true, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@course+block@course", "category": "course", "published_on": "May 07, 2018 at 15:36 UTC", "display_name": "Artificial Intelligence", "group_access": {}, "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/course/course-v1:AU+CS_AI+2018_Spring", "start": "2018-01-01T00:00:00Z", "edited_on": "May 16, 2018 at 20:21 UTC", "has_changes": null, "ancestor_has_staff_lock": false, "published": true, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]}]}, "staff_lock_from": null, "actions": {"draggable": true, "childAddable": true, "deletable": true, "duplicable": true}, "show_correctness": "always", "published_by": null, "user_partitions": [{"scheme": "enrollment_track", "id": 50, "groups": [{"deleted": false, "selected": false, "id": 1, "name": "Audit"}], "name": "Enrollment Track Groups"}], "id": "block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1", "currently_visible_to_students": false, "category": "vertical", "published_on": null, "display_name": "Homework 5 Question 1: Model-Based RL: Grid", "group_access": {}, "release_date_from": "Section \"Module 5 : Reinforcement Learning\"", "release_date": "Jan 01, 2018 at 00:00 UTC", "format": null, "due": null, "studio_url": "/container/block-v1:AU+CS_AI+2018_Spring+type@vertical+block@b0d032c566404db29c6a6e81b97753d1", "has_partition_group_components": false, "start": "2018-01-01T00:00:00Z", "edited_on": "May 14, 2018 at 15:06 UTC", "has_changes": true, "ancestor_has_staff_lock": false, "published": false, "course_graders": ["Homework", "Lab", "Midterm Exam", "Final Exam"]},
+            "view",
+            {
+                isUnitPage: true,
+                canEdit: true,
+                outlineURL: "/course/course\u002Dv1:AU+CS_AI+2018_Spring?format\u003Dconcise"
+            }
+        );
+    });
+
+          });
+      });
+    </script>
+    
+
+
+
+    <div class="modal-cover"></div>
+  
+
+<div id="reader-feedback" class="sr" aria-live="polite"></div><div class="tooltip" style="display: none; opacity: 0;"></div><div id="lean_overlay"></div></body></html>
